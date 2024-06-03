@@ -1,0 +1,15 @@
+<mat-toolbar color="primary" class="d-flex justify-content-between">
+  <div class="d-flex align-items-center header-left">
+    <img ngSrc="assets/images/favicon.png" alt="Favicon" class="favicon" height="500" width="500">
+    <span class="website-name">TrustTie</span>
+  </div>
+  <div class="header-middle d-flex">
+    <button mat-button routerLink="/home" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</button>
+    <button mat-button routerLink="/animals-list" routerLinkActive="active-link">Animals List</button>
+    <button mat-button routerLink="/events-list" routerLinkActive="active-link">Events List</button>
+    <button mat-button routerLink="/educational-resources-list" routerLinkActive="active-link">Educational Resources List</button>
+  </div>
+  <div class="header-right">
+    <button mat-button (click)="onLogin()">Login</button>
+  </div>
+</mat-toolbar>

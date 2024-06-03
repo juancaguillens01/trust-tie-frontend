@@ -1,0 +1,22 @@
+.footer {
+  background-color: #f8f9fa;
+  padding: 1rem 0;
+
+  .footer-logo {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 0.5rem;
+  }
+
+  .footer-description {
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-top: 0.5rem;
+  }
+}

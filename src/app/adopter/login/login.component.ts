@@ -19,10 +19,8 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.valid) {
-      console.log(this.authService.checkIsOrganization());
       const { email, password } = this.loginForm.value;
       this.authService.login(email, password);
-      console.log(this.authService.checkIsOrganization());
     } else {
       this.loginForm.markAllAsTouched();
     }

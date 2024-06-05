@@ -2,12 +2,14 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AdopterComponent} from "./adopter.component";
 import {LoginComponent} from "./login/login.component";
+import {RegisterComponent} from "./register/register.component";
 
 const routes: Routes = [
   {
-    path: '', component: AdopterComponent, children:  // el resto de componentes deben ser hijos de este
+    path: '', component: AdopterComponent, children:
       [
-        {path: 'login', component: LoginComponent}
+        {path: 'login', component: LoginComponent},
+        {path: 'register', component: RegisterComponent}
       ]
   },
 ];

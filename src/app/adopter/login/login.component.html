@@ -17,8 +17,8 @@
           <mat-error *ngIf="loginForm.get('password').hasError('required')">Password is required</mat-error>
         </mat-form-field>
         <div class="login-actions">
-          <button mat-button class="register-button">Register</button>
-          <button mat-button (click)="login()">Login</button>
+          <button mat-button class="register-button" routerLink="/adopter/register">Register</button>
+          <button mat-raised-button color="primary" (click)="login()">Login</button>
         </div>
       </form>
     </mat-card-content>

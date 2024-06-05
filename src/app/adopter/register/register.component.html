@@ -1,0 +1,75 @@
+<div class="register-container">
+  <mat-card class="register-card">
+    <div class="register-header">
+      <img src="../../../assets/images/favicon.png" alt="TrustTie Logo" class="register-logo">
+    </div>
+    <mat-card-content>
+      <form [formGroup]="registerForm">
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" required>
+          <mat-error *ngIf="registerForm.get('email').hasError('required')">Email is required</mat-error>
+          <mat-error *ngIf="registerForm.get('email').hasError('email')">Enter a valid email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" required>
+          <mat-error *ngIf="registerForm.get('password').hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="registerForm.get('password').hasError('pattern')">
+            Password must be at least 8 characters long, contain at least one number, one lowercase, one uppercase letter, and one special character.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Repeat Password</mat-label>
+          <input matInput formControlName="repeatPassword" type="password" required>
+          <mat-error *ngIf="registerForm.get('repeatPassword').hasError('required')">Repeat password is required</mat-error>
+          <mat-error *ngIf="registerForm.hasError('mismatch')">Passwords must match</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Phone</mat-label>
+          <input matInput formControlName="phone" type="tel" required>
+          <mat-error *ngIf="registerForm.get('phone').hasError('required')">Phone is required</mat-error>
+          <mat-error *ngIf="registerForm.get('phone').hasError('pattern')">Enter a valid phone number (e.g., +1234567890)</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="registerForm.get('role').hasError('required')">Role is required</mat-error>
+        </mat-form-field>
+
+        <div *ngIf="registerForm.get('role')?.value === 'adopter'">
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" type="text" required>
+            <mat-error *ngIf="registerForm.get('firstName').hasError('required')">First name is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" type="text" required>
+            <mat-error *ngIf="registerForm.get('lastName').hasError('required')">Last name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="registerForm.get('role')?.value === 'organization'">
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Organization Name</mat-label>
+            <input matInput formControlName="name" type="text" required>
+            <mat-error *ngIf="registerForm.get('name').hasError('required')">Organization name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="register-actions">
+          <button mat-button class="login-button" routerLink="/adopter/login">Login</button>
+          <button mat-raised-button color="primary" (click)="register()">Register</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

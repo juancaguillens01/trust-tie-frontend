@@ -1,0 +1,23 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <div class="login-header">
+      <img src="../../../assets/images/favicon.png" alt="TrustTie Logo" class="login-logo">
+    </div>
+    <mat-card-content>
+      <form>
+        <mat-form-field class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" required>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" required>
+        </mat-form-field>
+        <div class="login-actions">
+          <button mat-button class="register-button">Register</button>
+          <button mat-button (click)="login()">Login</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

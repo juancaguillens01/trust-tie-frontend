@@ -40,3 +40,15 @@
 .login-button {
   margin-left: auto;
 }
+
+.mat-form-field {
+  .mat-error {
+    color: red;
+  }
+
+  &.ng-touched.ng-invalid {
+    .mat-input-element {
+      border-color: red;
+    }
+  }
+}

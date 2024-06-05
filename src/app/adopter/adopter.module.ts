@@ -8,6 +8,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import { LoginComponent } from './login/login.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { LoginComponent } from './login/login.component';
     MatToolbarModule,
     NgOptimizedImage,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ]
 })
 export class AdopterModule { }

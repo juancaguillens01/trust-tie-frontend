@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +22,7 @@ export class RegisterComponent {
         Validators.required,
         Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$')
       ]],
-      repeatPassword: ['', [Validators.required]],
+      repeatPassword: ['', [Validators.required, this.matchPasswordValidator('password')]],
       phone: ['', [
         Validators.required,
         Validators.pattern('^(\\+\\d{1,15})$')
@@ -31,7 +31,7 @@ export class RegisterComponent {
       firstName: [''],
       lastName: [''],
       name: ['']
-    }, { validator: this.passwordMatchValidator });
+    });
   }
 
   private setupRoleChangeSubscriber(): void {
@@ -52,10 +52,17 @@ export class RegisterComponent {
     });
   }
 
-  private passwordMatchValidator(group: AbstractControl): { [key: string]: boolean } | null {
-    const password = group.get('password');
-    const repeatPassword = group.get('repeatPassword');
-    return password && repeatPassword && password.value !== repeatPassword.value ? { 'mismatch': true } : null;
+  private matchPasswordValidator(passwordField: string): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const formGroup = control.parent as FormGroup;
+      if (formGroup) {
+        const password = formGroup.get(passwordField)?.value;
+        if (control.value !== password) {
+          return { 'mismatch': true };
+        }
+      }
+      return null;
+    };
   }
 
   register() {

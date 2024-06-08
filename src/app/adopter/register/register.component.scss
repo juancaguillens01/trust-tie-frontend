@@ -41,8 +41,20 @@
 }
 
 .mat-form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
   .mat-error {
     color: red;
+    display: block;
+    margin-top: 0.25rem;
+    line-height: 1.25;
+    white-space: normal;
+  }
+
+  .mat-input-element.ng-touched.ng-invalid + .mat-error {
+    position: relative;
   }
 
   &.ng-touched.ng-invalid {

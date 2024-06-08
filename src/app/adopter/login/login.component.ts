@@ -17,10 +17,18 @@ export class LoginComponent {
     });
   }
 
-  login() {
+  login(event: Event) {
+    event.preventDefault();
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      this.authService.login(email, password);
+      this.authService.login(email, password).subscribe({
+        next: (token) => {
+          console.log('Login successful', token);
+        },
+        error: (err) => {
+          console.error('Login error', err);
+        }
+      });
     } else {
       this.loginForm.markAllAsTouched();
     }

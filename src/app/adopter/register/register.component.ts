@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   roles = ['adopter', 'organization'];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
     this.registerForm = this.createRegisterForm();
     this.setupRoleChangeSubscriber();
   }
@@ -68,9 +69,14 @@ export class RegisterComponent {
   register() {
     if (this.registerForm.valid) {
       console.log('Form submitted successfully');
-      // Add your registration logic here
+      this.snackBar.open('Registration successful', 'Close', {
+        duration: 3000,
+      });
     } else {
       this.registerForm.markAllAsTouched();
+      this.snackBar.open('Please fill out the form correctly', 'Close', {
+        duration: 3000,
+      });
     }
   }
 }

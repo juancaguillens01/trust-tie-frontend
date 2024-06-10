@@ -18,18 +18,16 @@ export class AuthService {
   private isOrganization: boolean = false;
   private user: User;
   private token: Token;
-  static LOGIN = environment.REST + '/user/login';
+  static LOGIN = environment.REST + '/users/login';
 
   constructor(private httpService: HttpService, private router: Router) {
   }
 
   login(email: string, password: string): Observable<Token> {
-    console.log("entramos");
     return this.httpService
       .post(AuthService.LOGIN, <Login>{email: email, password: password})
       .pipe(
         map(jsonToken => {
-          console.log("entramos2");
           const jwtHelper = new JwtHelperService();
           this.token = jsonToken;
           this.user.uuid = jwtHelper.decodeToken(jsonToken.token).uuid;

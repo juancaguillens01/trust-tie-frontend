@@ -23,14 +23,12 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.authService.login(email, password).subscribe({
-        next: (token) => {
-          console.log('Login successful', token);
+        next: () => {
           this.snackBar.open('Login successful', 'Close', {
             duration: 3000,
           });
         },
         error: (err) => {
-          console.error('Login error', err);
           this.snackBar.open(`Login error: ${err.message}`, 'Close', {
             duration: 3000,
           });

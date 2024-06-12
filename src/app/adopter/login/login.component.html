@@ -4,7 +4,7 @@
       <img src="../../../assets/images/favicon.png" alt="TrustTie Logo" class="login-logo">
     </div>
     <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="login($event)">
+      <form [formGroup]="loginForm">
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" type="email" required>
@@ -18,7 +18,7 @@
         </mat-form-field>
         <div class="login-actions">
           <button mat-button class="register-button" routerLink="/adopter/register">Register</button>
-          <button mat-raised-button color="primary" type="submit">Login</button>
+          <button mat-raised-button color="primary" (click)="login()">Login</button>
         </div>
       </form>
     </mat-card-content>

@@ -8,13 +8,15 @@ import { Login } from '@core/login.model';
 import { map } from 'rxjs/operators';
 import { User } from '@core/user.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import {Role} from "@core/role.model";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-
   private isOrganization: boolean = false;
+  private isAdopter: boolean = false;
+  private isLoggedIn: boolean = false;
   private user: User = { uuid: '', role: null };
   private token: Token;
   static LOGIN = environment.REST + '/users/login';
@@ -31,7 +33,10 @@ export class AuthService {
           const decodedToken = jwtHelper.decodeToken(jsonToken.token);
           this.user.uuid = decodedToken.uuid;
           this.user.role = decodedToken.role;
-          console.log(this.user.role);
+          this.isOrganization = this.user.role === Role.ORGANIZATION;
+          this.isAdopter = this.user.role === Role.ADOPTER;
+          this.isLoggedIn = true;
+          console.log(this.user);
           return this.token;
         })
       );
@@ -41,7 +46,24 @@ export class AuthService {
     return this.isOrganization;
   }
 
+  checkIsAdopter(): boolean {
+    return this.isAdopter;
+  }
+
+  checkIsLoggedIn(): boolean {
+    return this.isLoggedIn;
+  }
+
   getToken(): Token {
     return this.token;
+  }
+
+  logout() {
+    this.token = null;
+    this.user = { uuid: '', role: null };
+    this.isOrganization = false;
+    this.isAdopter = false;
+    this.isLoggedIn = false;
+    this.router.navigate(['/']).then();
   }
 }

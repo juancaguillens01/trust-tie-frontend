@@ -1,14 +1,16 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {OrganizationGuard} from "@core/organization.guard";
+import {AdopterGuard} from "@core/guards/adopter.guard";
+import {OrganizationGuard} from "@core/guards/organization.guard";
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: 'adopter'},
-  {path: 'adopter', loadChildren: () => import('./adopter/adopter.module').then(module => module.AdopterModule)},
+  {
+    path: 'adopter',
+    loadChildren: () => import('./adopter/adopter.module').then(m => m.AdopterModule)
+  },
   {
     path: 'organization',
-    canActivate: [OrganizationGuard],
-    loadChildren: () => import('./organization/organization.module').then(module => module.OrganizationModule)
+    loadChildren: () => import('./organization/organization.module').then(m => m.OrganizationModule)
   },
   {path: '**', redirectTo: 'adopter'},
 ];

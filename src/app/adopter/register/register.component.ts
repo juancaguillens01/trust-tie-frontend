@@ -14,6 +14,7 @@ export class RegisterComponent {
   constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
     this.registerForm = this.createRegisterForm();
     this.setupRoleChangeSubscriber();
+    this.setupPasswordChangeSubscribers();
   }
 
   private createRegisterForm(): FormGroup {
@@ -23,7 +24,7 @@ export class RegisterComponent {
         Validators.required,
         Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$')
       ]],
-      repeatPassword: ['', [Validators.required, this.matchPasswordValidator('password')]],
+      repeatPassword: ['', [Validators.required]],
       phone: ['', [
         Validators.required,
         Validators.pattern('^(\\+\\d{1,15})$')
@@ -32,7 +33,7 @@ export class RegisterComponent {
       firstName: [''],
       lastName: [''],
       name: ['']
-    });
+    }, { validators: this.passwordMatchValidator });
   }
 
   private setupRoleChangeSubscriber(): void {
@@ -53,30 +54,57 @@ export class RegisterComponent {
     });
   }
 
-  private matchPasswordValidator(passwordField: string): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const formGroup = control.parent as FormGroup;
-      if (formGroup) {
-        const password = formGroup.get(passwordField)?.value;
-        if (control.value !== password) {
-          return { 'mismatch': true };
-        }
-      }
-      return null;
-    };
+  private setupPasswordChangeSubscribers(): void {
+    this.registerForm.get('password')?.valueChanges.subscribe(() => {
+      this.registerForm.get('repeatPassword')?.updateValueAndValidity();
+    });
+    this.registerForm.get('repeatPassword')?.valueChanges.subscribe(() => {
+      this.registerForm.get('repeatPassword')?.updateValueAndValidity();
+    });
   }
+
+  private passwordMatchValidator: ValidatorFn = (formGroup: AbstractControl): ValidationErrors | null => {
+    const password = formGroup.get('password')?.value;
+    const repeatPassword = formGroup.get('repeatPassword')?.value;
+    return password === repeatPassword ? null : { mismatch: true };
+  };
 
   register() {
     if (this.registerForm.valid) {
-      console.log('Form submitted successfully');
+
       this.snackBar.open('Registration successful', 'Close', {
         duration: 3000,
       });
     } else {
       this.registerForm.markAllAsTouched();
-      this.snackBar.open('Please fill out the form correctly', 'Close', {
-        duration: 3000,
-      });
+
+      const phoneError = this.registerForm.get('phone')?.hasError('pattern');
+      const passwordError = this.registerForm.get('password')?.hasError('pattern');
+      const passwordMismatchError = this.registerForm.hasError('mismatch');
+
+      if (phoneError) {
+        this.snackBar.open('Enter a valid phone number (e.g., +34722680349)', 'Close', {
+          duration: 3000,
+        });
+      }
+
+      if (passwordError) {
+        this.snackBar.open('Password must be at least 8 characters long, contain at least one number, one lowercase, one uppercase letter, and one special character.', 'Close', {
+          duration: 3000,
+        });
+      }
+
+      if (passwordMismatchError) {
+        this.snackBar.open('Passwords must match', 'Close', {
+          duration: 3000,
+        });
+      }
+
+      if (!phoneError && !passwordError && !passwordMismatchError) {
+        this.snackBar.open('Please fill out the form correctly', 'Close', {
+          duration: 3000,
+        });
+      }
     }
   }
 }

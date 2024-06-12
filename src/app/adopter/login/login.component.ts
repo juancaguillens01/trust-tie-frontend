@@ -28,18 +28,8 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const {email, password} = this.loginForm.value;
       this.authService.login(email, password).subscribe({
-        next: () => {
-          this.snackBar.open('Login successful', 'Close', {
-            duration: 3000,
-          });
-          console.log("isOrg", this.authService.checkIsOrganization());
-          console.log("isAdopter", this.authService.checkIsAdopter());
-          if (this.authService.checkIsOrganization()) {
-            this.router.navigate(['/organization/dashboard']).then();
-          } else if (this.authService.checkIsAdopter()) {
-            this.router.navigate(['/adopter']).then();
-          }
-        }
+        next: () => this.handleSuccess(),
+        error: (err) => this.handleError(err)
       });
     } else {
       this.loginForm.markAllAsTouched();
@@ -47,6 +37,21 @@ export class LoginComponent {
         duration: 3000,
       });
     }
+  }
+
+  private handleSuccess(): void {
+    this.snackBar.open('Login successful', 'Close', {
+      duration: 3000,
+    });
+    if (this.authService.checkIsOrganization()) {
+      this.router.navigate(['/organization/dashboard']).then();
+    } else if (this.authService.checkIsAdopter()) {
+      this.router.navigate(['/adopter']).then();
+    }
+  }
+
+  private handleError(err: any): void {
+    this.snackBar.open(`Login failed: ${err.message}`, 'Close', { duration: 3000 });
   }
 
   logout() {

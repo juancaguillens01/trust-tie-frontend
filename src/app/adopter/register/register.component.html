@@ -22,6 +22,7 @@
           <mat-label>Repeat Password</mat-label>
           <input matInput formControlName="repeatPassword" type="password" required>
           <mat-error *ngIf="registerForm.get('repeatPassword').hasError('required')">Repeat password is required</mat-error>
+          <mat-error *ngIf="registerForm.hasError('mismatch')">Passwords must match</mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="fill">
@@ -38,7 +39,7 @@
           <mat-error *ngIf="registerForm.get('role').hasError('required')">Role is required</mat-error>
         </mat-form-field>
 
-        <div *ngIf="registerForm.get('role')?.value === 'adopter'">
+        <div *ngIf="registerForm.get('role')?.value === 'Adopter'">
           <mat-form-field class="full-width" appearance="fill">
             <mat-label>First Name</mat-label>
             <input matInput formControlName="firstName" type="text" required>
@@ -52,7 +53,7 @@
           </mat-form-field>
         </div>
 
-        <div *ngIf="registerForm.get('role')?.value === 'organization'">
+        <div *ngIf="registerForm.get('role')?.value === 'Organization'">
           <mat-form-field class="full-width" appearance="fill">
             <mat-label>Organization Name</mat-label>
             <input matInput formControlName="name" type="text" required>

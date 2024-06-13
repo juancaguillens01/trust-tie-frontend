@@ -28,7 +28,10 @@
       </ng-template>
     </ng-template>
   </div>
-  <div class="header-right">
+  <div class="header-right d-flex align-items-center">
+    <button *ngIf="isLoggedIn()" mat-button [routerLink]="isAdopter() ? '/adopter/profile' : '/organization/profile'" routerLinkActive="active-link">
+      <img src="../../../../assets/images/defaultUser.png" alt="Profile" class="profile-icon">
+    </button>
     <button *ngIf="!isLoggedIn(); else logoutButton" mat-button routerLink="/adopter/login"
             routerLinkActive="active-link">Login
     </button>

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {HeaderComponent} from "./header/header.component";
 import { AdopterRoutingModule } from './adopter-routing.module';
 import { AdopterComponent } from './adopter.component';
 import {MatButtonModule} from "@angular/material/button";
@@ -12,12 +11,12 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { RegisterComponent } from './register/register.component';
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
+import {SharedModule} from "../shared/shared.module";
 
 
 @NgModule({
   declarations: [
     AdopterComponent,
-    HeaderComponent,
     LoginComponent,
     RegisterComponent
   ],
@@ -31,7 +30,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatInputModule,
     ReactiveFormsModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    SharedModule
   ]
 })
 export class AdopterModule { }

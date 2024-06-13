@@ -11,6 +11,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {Role} from "@core/role.model";
 import {RegisterAdopter} from "@core/register.adopter.model";
 import {RegisterOrganization} from "@core/register.organization.model";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,7 @@ export class AuthService {
   static REGISTER_ADOPTER = environment.REST + '/users/register/adopter';
   static REGISTER_ORGANIZATION = environment.REST + '/users/register/organization';
 
-  constructor(private httpService: HttpService, private router: Router) {
+  constructor(private httpService: HttpService, private router: Router, private snackBar: MatSnackBar) {
   }
 
   login(email: string, password: string): Observable<Token> {
@@ -94,6 +95,9 @@ export class AuthService {
     this.isOrganization = false;
     this.isAdopter = false;
     this.isLoggedIn = false;
+    this.snackBar.open('Logout successful', 'Close', {
+      duration: 3000,
+    });
     this.router.navigate(['/']).then();
   }
 }

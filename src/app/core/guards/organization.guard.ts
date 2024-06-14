@@ -5,7 +5,6 @@ import { AuthService } from '@core/auth.service';
 export const OrganizationGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
-
   if (authService.checkIsOrganization()) {
     return true;
   } else if (authService.checkIsAdopter()) {

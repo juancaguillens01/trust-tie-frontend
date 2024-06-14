@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { AuthService } from 'app/core/auth.service';
 import { RegisterAdopter } from 'app/core/register.adopter.model';
 import { RegisterOrganization } from 'app/core/register.organization.model';
-import { Role } from "@core/role.model";
 
 @Component({
   selector: 'app-register',

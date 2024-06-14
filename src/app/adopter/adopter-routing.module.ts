@@ -8,7 +8,7 @@ import {LoggedInGuard} from "@core/guards/logged-in-guard";
 const routes: Routes = [
   { path: '', component: AdopterComponent, children: [
       { path: 'login', component: LoginComponent, canActivate: [LoggedInGuard] },
-      { path: 'register', component: RegisterComponent, canActivate: [LoggedInGuard] }
+      { path: 'register', component: RegisterComponent, canActivate: [LoggedInGuard] },
     ]}
 ];
 

@@ -19,85 +19,103 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class AuthService {
   private isOrganization: boolean = false;
   private isAdopter: boolean = false;
-  private isLoggedIn: boolean = false;
   private user: User = {uuid: '', role: null};
-  private token: Token;
-  static LOGIN = environment.REST + '/users/login';
-  static REGISTER_ADOPTER = environment.REST + '/users/register/adopter';
-  static REGISTER_ORGANIZATION = environment.REST + '/users/register/organization';
+  private jwtHelper: JwtHelperService = new JwtHelperService();
+  static readonly LOGIN = environment.REST + '/users/login';
+  static readonly REGISTER_ADOPTER = environment.REST + '/users/register/adopter';
+  static readonly REGISTER_ORGANIZATION = environment.REST + '/users/register/organization';
+  static readonly TOKEN = "token";
 
-  constructor(private httpService: HttpService, private router: Router, private snackBar: MatSnackBar) {
-  }
+  constructor(private httpService: HttpService, private router: Router, private snackBar: MatSnackBar) {}
 
-  login(email: string, password: string): Observable<Token> {
+  login(email: string, password: string): Observable<void> {
     return this.httpService
       .post(AuthService.LOGIN, <Login>{email: email, password: password})
       .pipe(
         map(jsonToken => {
           this.handleAuthentication(jsonToken);
-          return this.token;
         })
       );
   }
 
-  registerAdopter(adopterData: RegisterAdopter): Observable<Token> {
+  registerAdopter(adopterData: RegisterAdopter): Observable<void> {
     return this.httpService
       .post(AuthService.REGISTER_ADOPTER, adopterData)
       .pipe(
         map(jsonToken => {
           this.handleAuthentication(jsonToken);
-          return this.token;
         })
       );
   }
 
-  registerOrganization(organizationData: RegisterOrganization): Observable<Token> {
+  registerOrganization(organizationData: RegisterOrganization): Observable<void> {
     return this.httpService
       .post(AuthService.REGISTER_ORGANIZATION, organizationData)
       .pipe(
         map(jsonToken => {
           this.handleAuthentication(jsonToken);
-          return this.token;
         })
       );
   }
 
   private handleAuthentication(jsonToken: Token): void {
-    const jwtHelper = new JwtHelperService();
-    this.token = jsonToken;
-    const decodedToken = jwtHelper.decodeToken(jsonToken.token);
+    sessionStorage.setItem(AuthService.TOKEN, jsonToken.token);
+    const decodedToken = this.jwtHelper.decodeToken(jsonToken.token);
     this.user.uuid = decodedToken.uuid;
     this.user.role = decodedToken.role;
     this.isOrganization = this.user.role === Role.ORGANIZATION;
     this.isAdopter = this.user.role === Role.ADOPTER;
-    this.isLoggedIn = true;
   }
 
   checkIsOrganization(): boolean {
-    return this.isOrganization;
+    return this.isOrganization || this.validateTokenRole(Role.ORGANIZATION);
   }
 
   checkIsAdopter(): boolean {
-    return this.isAdopter;
+    return this.isAdopter || this.validateTokenRole(Role.ADOPTER);
   }
 
   checkIsLoggedIn(): boolean {
-    return this.isLoggedIn;
+    const token = sessionStorage.getItem(AuthService.TOKEN);
+    return token !== null && this.validateTokenExpirationDate();
   }
 
-  getToken(): Token {
-    return this.token;
+  private validateTokenRole(role: Role): boolean {
+    const token = sessionStorage.getItem(AuthService.TOKEN);
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      return decodedToken.role === role && this.validateTokenExpirationDate();
+    }
+    return false;
   }
 
-  logout() {
-    this.token = null;
+  private validateTokenExpirationDate(): boolean {
+    const token = sessionStorage.getItem(AuthService.TOKEN);
+    if (token && this.jwtHelper.getTokenExpirationDate(token) > new Date()) {
+      return true;
+    }
+    this.clearSession();
+    return false;
+  }
+
+  private clearSession(): void {
+    sessionStorage.removeItem(AuthService.TOKEN);
     this.user = {uuid: '', role: null};
     this.isOrganization = false;
     this.isAdopter = false;
-    this.isLoggedIn = false;
+    this.router.navigate(['/']).then();
+  }
+
+  getToken(): Token {
+    return <Token>{
+      token: sessionStorage.getItem(AuthService.TOKEN)
+    };
+  }
+
+  logout() {
+    this.clearSession();
     this.snackBar.open('Logout successful', 'Close', {
       duration: 3000,
     });
-    this.router.navigate(['/']).then();
   }
 }

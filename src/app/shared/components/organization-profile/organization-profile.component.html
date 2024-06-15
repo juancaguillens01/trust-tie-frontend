@@ -1,0 +1,62 @@
+<div class="profile-container">
+  <mat-card class="profile-card">
+    <div class="profile-header">
+      <img src="../../../../assets/images/favicon.png" alt="TrustTie Logo" class="profile-logo">
+    </div>
+    <mat-card-content>
+      <form [formGroup]="organizationForm">
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email">
+          <mat-error *ngIf="organizationForm.get('email').hasError('email')">Enter a valid email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password">
+          <mat-error *ngIf="organizationForm.get('password').hasError('pattern')">
+            Password must be at least 8 characters long, contain at least one number, one lowercase, one uppercase letter, and one special character.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill" *ngIf="organizationForm.get('password').value">
+          <mat-label>Repeat Password</mat-label>
+          <input matInput formControlName="repeatPassword" type="password">
+          <mat-error *ngIf="organizationForm.get('repeatPassword').hasError('required')">Repeat password is required</mat-error>
+          <mat-error *ngIf="organizationForm.hasError('mismatch')">Passwords must match</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Phone</mat-label>
+          <input matInput formControlName="phone" type="tel">
+          <mat-error *ngIf="organizationForm.get('phone').hasError('pattern')">Enter a valid phone number (e.g., +34722680349)</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Organization Name</mat-label>
+          <input matInput formControlName="name" type="text">
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Website</mat-label>
+          <input matInput formControlName="website" type="url">
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Images</mat-label>
+          <input matInput formControlName="images" type="text">
+        </mat-form-field>
+
+        <div class="profile-actions">
+          <button mat-raised-button color="warn" (click)="deleteAccount()">Delete Account</button>
+          <button mat-raised-button color="primary" (click)="updateOrganization()">Update</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

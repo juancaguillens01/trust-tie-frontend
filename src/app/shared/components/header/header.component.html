@@ -8,23 +8,23 @@
       <button mat-button routerLink="/adopter" routerLinkActive="active-link"
               [routerLinkActiveOptions]="{ exact: true }">Home
       </button>
-      <button mat-button routerLink="/animals-list" routerLinkActive="active-link">Animals List</button>
-      <button mat-button routerLink="/events-list" routerLinkActive="active-link">Events List</button>
+      <button mat-button routerLink="/adopter/animals-list" routerLinkActive="active-link">Animals List</button>
+      <button mat-button routerLink="/adopter/events-list" routerLinkActive="active-link">Events List</button>
     </ng-container>
     <ng-template #loggedInLinks>
       <ng-container *ngIf="isAdopter(); else organizationLinks">
         <button mat-button routerLink="/adopter" routerLinkActive="active-link"
                 [routerLinkActiveOptions]="{ exact: true }">Home
         </button>
-        <button mat-button routerLink="/animals-list" routerLinkActive="active-link">Animals List</button>
-        <button mat-button routerLink="/events-list" routerLinkActive="active-link">Events List</button>
+        <button mat-button routerLink="/adopter/animals-list" routerLinkActive="active-link">Animals List</button>
+        <button mat-button routerLink="/adopter/events-list" routerLinkActive="active-link">Events List</button>
       </ng-container>
       <ng-template #organizationLinks>
         <button mat-button routerLink="/organization/dashboard" routerLinkActive="active-link"
                 [routerLinkActiveOptions]="{ exact: true }">Organization Dashboard
         </button>
-        <button mat-button routerLink="/my-animals-list" routerLinkActive="active-link">My Animals List</button>
-        <button mat-button routerLink="/my-events-list" routerLinkActive="active-link">My Events List</button>
+        <button mat-button routerLink="/organization/my-animals-list" routerLinkActive="active-link">My Animals List</button>
+        <button mat-button routerLink="/organization/my-events-list" routerLinkActive="active-link">My Events List</button>
       </ng-template>
     </ng-template>
   </div>

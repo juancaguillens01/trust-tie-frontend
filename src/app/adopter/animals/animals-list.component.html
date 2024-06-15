@@ -1,0 +1,18 @@
+<div class="animals-container">
+  <h2>Animals List</h2>
+  <div *ngIf="animals.length > 0; else noAnimals">
+    <mat-card *ngFor="let animal of animals" class="animal-card">
+      <mat-card-title>{{ animal.name }}</mat-card-title>
+      <mat-card-content>
+        <p>Type: {{ animal.type }}</p>
+        <p>Breed: {{ animal.breed }}</p>
+        <p>Age: {{ animal.age }}</p>
+        <p>Size: {{ animal.size }}</p>
+        <p>Characteristics: {{ animal.characteristics }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <ng-template #noAnimals>
+    <p>No animals available</p>
+  </ng-template>
+</div>

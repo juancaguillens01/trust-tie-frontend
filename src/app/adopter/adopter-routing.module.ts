@@ -6,12 +6,15 @@ import { RegisterComponent } from './register/register.component';
 import {LoggedInGuard} from "@core/guards/logged-in-guard";
 import {AdopterGuard} from "@core/guards/adopter.guard";
 import {AdopterProfileComponent} from "./profile/adopter-profile.component";
+import {AnimalsListComponent} from "./animals/animals-list.component";
+import {GuestGuard} from "@core/guards/guest.guard";
 
 const routes: Routes = [
   { path: '', component: AdopterComponent, children: [
       { path: 'login', component: LoginComponent, canActivate: [LoggedInGuard] },
       { path: 'register', component: RegisterComponent, canActivate: [LoggedInGuard] },
       { path: 'profile', component: AdopterProfileComponent, canActivate: [AdopterGuard] },
+      { path: 'animals-list', component: AnimalsListComponent, canActivate: [GuestGuard] },
     ]}
 ];
 

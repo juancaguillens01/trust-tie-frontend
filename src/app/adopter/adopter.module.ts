@@ -13,6 +13,7 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {SharedModule} from "../shared/shared.module";
 import { AdopterProfileComponent } from './profile/adopter-profile.component';
+import { AnimalsListComponent } from './animals/animals-list.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { AdopterProfileComponent } from './profile/adopter-profile.component';
     AdopterComponent,
     LoginComponent,
     RegisterComponent,
-    AdopterProfileComponent
+    AdopterProfileComponent,
+    AnimalsListComponent
   ],
   imports: [
     CommonModule,

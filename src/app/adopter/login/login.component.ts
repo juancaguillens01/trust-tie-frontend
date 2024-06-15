@@ -53,13 +53,4 @@ export class LoginComponent {
   private handleError(err: any): void {
     this.snackBar.open(`Login failed: ${err.message}`, 'Close', { duration: 3000 });
   }
-
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/']).then(() => {
-      this.snackBar.open('Logged out successfully', 'Close', {
-        duration: 3000,
-      });
-    });
-  }
 }

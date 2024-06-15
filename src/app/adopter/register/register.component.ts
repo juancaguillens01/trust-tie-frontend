@@ -64,11 +64,11 @@ export class RegisterComponent {
   }
 
   private setupPasswordChangeSubscribers(): void {
-    this.registerForm.get('password')?.valueChanges.subscribe(() => {
-      this.registerForm.get('repeatPassword')?.updateValueAndValidity();
-    });
-    this.registerForm.get('repeatPassword')?.valueChanges.subscribe(() => {
-      this.registerForm.get('repeatPassword')?.updateValueAndValidity();
+    const passwordControl = this.registerForm.get('password');
+    const repeatPasswordControl = this.registerForm.get('repeatPassword');
+
+    passwordControl?.valueChanges.subscribe(() => {
+      repeatPasswordControl?.updateValueAndValidity();
     });
   }
 

@@ -8,10 +8,12 @@ import { OrganizationProfileComponent } from './components/organization-profile/
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
+import { ConfirmDialogComponent } from './dialogs/confirm-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
-  declarations: [HeaderComponent, OrganizationProfileComponent],
-  imports: [CommonModule, MatToolbarModule, RouterLink, MatButtonModule, RouterLinkActive, ReactiveFormsModule, MatInputModule, MatCardModule],
+  declarations: [HeaderComponent, OrganizationProfileComponent, ConfirmDialogComponent],
+  imports: [CommonModule, MatToolbarModule, RouterLink, MatButtonModule, RouterLinkActive, ReactiveFormsModule, MatInputModule, MatCardModule, MatDialogModule],
   exports: [HeaderComponent]
 })
 export class SharedModule {}

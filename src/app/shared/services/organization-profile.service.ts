@@ -12,6 +12,7 @@ import { Observable } from "rxjs";
 export class OrganizationProfileService {
   static readonly GET_ORGANIZATION = environment.REST + "/users/profile/organization";
   static readonly UPDATE_ORGANIZATION = environment.REST + "/organizations/";
+  static readonly DELETE_ORGANIZATION = environment.REST + "/organizations/";
 
   constructor(private httpService: HttpService, private router: Router, private snackBar: MatSnackBar) {}
 
@@ -21,5 +22,9 @@ export class OrganizationProfileService {
 
   updateOrganization(uuid: string, organization: Partial<Organization>): Observable<Organization> {
     return this.httpService.put(`${OrganizationProfileService.UPDATE_ORGANIZATION}${uuid}`, organization);
+  }
+
+  deleteOrganization(uuid: string): Observable<void> {
+    return this.httpService.delete(`${OrganizationProfileService.DELETE_ORGANIZATION}${uuid}`);
   }
 }

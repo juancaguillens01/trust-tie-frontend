@@ -26,7 +26,8 @@ export class AuthService {
   static readonly REGISTER_ORGANIZATION = environment.REST + '/users/register/organization';
   static readonly TOKEN = "token";
 
-  constructor(private httpService: HttpService, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(private httpService: HttpService, private router: Router, private snackBar: MatSnackBar) {
+  }
 
   login(email: string, password: string): Observable<void> {
     return this.httpService
@@ -98,7 +99,7 @@ export class AuthService {
     return false;
   }
 
-  private clearSession(): void {
+  clearSession(): void {
     sessionStorage.removeItem(AuthService.TOKEN);
     this.user = {uuid: '', role: null};
     this.isOrganization = false;

@@ -33,12 +33,10 @@ export class OrganizationProfileComponent implements OnInit {
 
   private createOrganizationForm(): FormGroup {
     return this.fb.group({
-      email: ['', [Validators.email]],
+      email: [{ value: '', disabled: true }, [Validators.email]],
       password: [''],
       repeatPassword: [''],
-      phone: ['', [
-        Validators.pattern('^(\\+\\d{1,15})$')
-      ]],
+      phone: ['', [Validators.pattern('^(\\+\\d{1,15})$')]],
       name: [''],
       description: [''],
       website: ['']
@@ -57,16 +55,21 @@ export class OrganizationProfileComponent implements OnInit {
         }
       });
     } else {
-      this.snackBar.open('Unauthorized access', 'Close', {
-        duration: 3000,
-      });
+      this.snackBar.open('Unauthorized access', 'Close', { duration: 3000 });
       this.router.navigate(['/']);
     }
   }
 
   private setupPasswordChangeSubscribers(): void {
     this.organizationForm.get('password')?.valueChanges.subscribe(() => {
-      this.organizationForm.get('repeatPassword')?.updateValueAndValidity();
+      const passwordControl = this.organizationForm.get('password');
+      const repeatPasswordControl = this.organizationForm.get('repeatPassword');
+      if (passwordControl?.value) {
+        repeatPasswordControl?.setValidators([Validators.required]);
+      } else {
+        repeatPasswordControl?.clearValidators();
+      }
+      repeatPasswordControl?.updateValueAndValidity();
     });
   }
 
@@ -82,20 +85,24 @@ export class OrganizationProfileComponent implements OnInit {
 
   updateOrganization() {
     if (this.organizationForm.valid) {
-      const password = this.organizationForm.get('password')?.value;
+      const updatedOrganization = this.getUpdatedOrganization();
 
-      if (password && !this.organizationForm.hasError('mismatch')) {
+      if (updatedOrganization.password && !this.organizationForm.hasError('mismatch')) {
         const passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$/;
-        if (!passwordPattern.test(password)) {
+        if (!passwordPattern.test(updatedOrganization.password)) {
           this.snackBar.open('Password must be at least 8 characters long, contain at least one number, one lowercase, one uppercase letter, and one special character.', 'Close', { duration: 3000 });
           return;
         }
       }
 
-      const updatedOrganization = this.organizationForm.value;
-      // Lógica para actualizar la organización con el servicio correspondiente
-      this.snackBar.open('Organization updated successfully', 'Close', {
-        duration: 3000,
+      this.organizationProfileService.updateOrganization(this.organization.organizationUuid, updatedOrganization).subscribe({
+        next: () => {
+          this.snackBar.open('Organization updated successfully', 'Close', { duration: 3000 });
+          this.router.navigate(['/organization/dashboard']).then();
+        },
+        error: (err) => {
+          this.snackBar.open(`Error updating organization: ${err.message}`, 'Close', { duration: 3000 });
+        }
       });
     } else {
       this.organizationForm.markAllAsTouched();
@@ -103,16 +110,33 @@ export class OrganizationProfileComponent implements OnInit {
     }
   }
 
+  private getUpdatedOrganization(): Partial<Organization> {
+    const updatedOrganization: Partial<Organization> = {};
+
+    Object.keys(this.organizationForm.controls).forEach(key => {
+      const control = this.organizationForm.get(key);
+      const currentValue = control?.value;
+      const originalValue = this.organization[key];
+
+      if (control?.enabled && currentValue !== undefined && currentValue !== '') {
+        updatedOrganization[key] = currentValue;
+      } else if (control?.enabled && (currentValue === '' || currentValue === undefined)) {
+        updatedOrganization[key] = originalValue;
+      }
+    });
+
+    return updatedOrganization;
+  }
+
   deleteAccount() {
     // Lógica para eliminar la cuenta
-    this.snackBar.open('Account deleted successfully', 'Close', {
-      duration: 3000,
-    });
+    this.snackBar.open('Account deleted successfully', 'Close', { duration: 3000 });
   }
 
   private handleFormErrors(): void {
     const phoneError = this.organizationForm.get('phone')?.hasError('pattern');
     const passwordMismatchError = this.organizationForm.hasError('mismatch');
+    const repeatPasswordRequiredError = this.organizationForm.get('repeatPassword')?.hasError('required');
 
     if (phoneError) {
       this.snackBar.open('Enter a valid phone number (e.g., +34722680349)', 'Close', { duration: 3000 });
@@ -122,7 +146,11 @@ export class OrganizationProfileComponent implements OnInit {
       this.snackBar.open('Passwords must match', 'Close', { duration: 3000 });
     }
 
-    if (!phoneError && !passwordMismatchError) {
+    if (repeatPasswordRequiredError) {
+      this.snackBar.open('Repeat password is required', 'Close', { duration: 3000 });
+    }
+
+    if (!phoneError && !passwordMismatchError && !repeatPasswordRequiredError) {
       this.snackBar.open('Please fill out the form correctly', 'Close', { duration: 3000 });
     }
   }

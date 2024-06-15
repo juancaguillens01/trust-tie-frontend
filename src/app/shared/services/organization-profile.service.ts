@@ -11,10 +11,15 @@ import { Observable } from "rxjs";
 })
 export class OrganizationProfileService {
   static readonly GET_ORGANIZATION = environment.REST + "/users/profile/organization";
+  static readonly UPDATE_ORGANIZATION = environment.REST + "/organizations/";
 
   constructor(private httpService: HttpService, private router: Router, private snackBar: MatSnackBar) {}
 
   getOrganization(): Observable<Organization> {
     return this.httpService.get(OrganizationProfileService.GET_ORGANIZATION);
+  }
+
+  updateOrganization(uuid: string, organization: Partial<Organization>): Observable<Organization> {
+    return this.httpService.put(`${OrganizationProfileService.UPDATE_ORGANIZATION}${uuid}`, organization);
   }
 }

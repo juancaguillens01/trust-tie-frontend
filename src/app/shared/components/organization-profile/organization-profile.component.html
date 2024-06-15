@@ -7,8 +7,8 @@
       <form [formGroup]="organizationForm">
         <mat-form-field class="full-width" appearance="fill">
           <mat-label>Email</mat-label>
-          <input matInput formControlName="email" type="email">
-          <mat-error *ngIf="organizationForm.get('email').hasError('email')">Enter a valid email</mat-error>
+          <input matInput formControlName="email" type="email" readonly>
+          <mat-error *ngIf="organizationForm.get('email')?.hasError('email')">Enter a valid email</mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="fill">
@@ -16,10 +16,11 @@
           <input matInput formControlName="password" type="password">
         </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="fill" *ngIf="organizationForm.get('password').value">
+        <mat-form-field class="full-width" appearance="fill" *ngIf="organizationForm.get('password')?.value">
           <mat-label>Repeat Password</mat-label>
           <input matInput formControlName="repeatPassword" type="password">
           <mat-error *ngIf="organizationForm.hasError('mismatch')">Passwords must match</mat-error>
+          <mat-error *ngIf="organizationForm.get('repeatPassword')?.hasError('required')">Repeat password is required</mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="fill">

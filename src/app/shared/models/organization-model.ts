@@ -1,4 +1,5 @@
 export interface Organization {
+  organizationUuid: string;
   email: string;
   password: string;
   name: string;

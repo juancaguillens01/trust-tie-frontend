@@ -12,13 +12,15 @@ import { RegisterComponent } from './register/register.component';
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {SharedModule} from "../shared/shared.module";
+import { AdopterProfileComponent } from './profile/adopter-profile.component';
 
 
 @NgModule({
   declarations: [
     AdopterComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AdopterProfileComponent
   ],
   imports: [
     CommonModule,

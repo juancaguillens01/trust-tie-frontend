@@ -30,15 +30,15 @@
   width: 100%;
 }
 
+.fixed-textarea textarea {
+  height: 60px;
+  resize: none;
+}
+
 .profile-actions {
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
-}
-
-button.mat-warn {
-  background-color: red;
-  color: white;
 }
 
 .mat-form-field {

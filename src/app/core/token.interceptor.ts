@@ -12,7 +12,6 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: Token = this.auth.getToken();
-    console.log(token);
     if (token && token.token) {
       let authToken = token.token;
       if (!authToken.startsWith('Bearer ')) {

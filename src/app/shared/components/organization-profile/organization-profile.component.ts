@@ -34,17 +34,14 @@ export class OrganizationProfileComponent implements OnInit {
   private createOrganizationForm(): FormGroup {
     return this.fb.group({
       email: ['', [Validators.email]],
-      password: ['', [
-        Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$')
-      ]],
+      password: [''],
       repeatPassword: [''],
       phone: ['', [
         Validators.pattern('^(\\+\\d{1,15})$')
       ]],
       name: [''],
       description: [''],
-      website: [''],
-      images: ['']
+      website: ['']
     }, { validators: this.passwordMatchValidator });
   }
 
@@ -71,19 +68,30 @@ export class OrganizationProfileComponent implements OnInit {
     this.organizationForm.get('password')?.valueChanges.subscribe(() => {
       this.organizationForm.get('repeatPassword')?.updateValueAndValidity();
     });
-    this.organizationForm.get('repeatPassword')?.valueChanges.subscribe(() => {
-      this.organizationForm.get('repeatPassword')?.updateValueAndValidity();
-    });
   }
 
   private passwordMatchValidator: ValidatorFn = (formGroup: AbstractControl): ValidationErrors | null => {
     const password = formGroup.get('password')?.value;
     const repeatPassword = formGroup.get('repeatPassword')?.value;
-    return password === repeatPassword ? null : { mismatch: true };
+
+    if (password && repeatPassword && password !== repeatPassword) {
+      return { mismatch: true };
+    }
+    return null;
   };
 
   updateOrganization() {
     if (this.organizationForm.valid) {
+      const password = this.organizationForm.get('password')?.value;
+
+      if (password && !this.organizationForm.hasError('mismatch')) {
+        const passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$/;
+        if (!passwordPattern.test(password)) {
+          this.snackBar.open('Password must be at least 8 characters long, contain at least one number, one lowercase, one uppercase letter, and one special character.', 'Close', { duration: 3000 });
+          return;
+        }
+      }
+
       const updatedOrganization = this.organizationForm.value;
       // Lógica para actualizar la organización con el servicio correspondiente
       this.snackBar.open('Organization updated successfully', 'Close', {
@@ -104,22 +112,17 @@ export class OrganizationProfileComponent implements OnInit {
 
   private handleFormErrors(): void {
     const phoneError = this.organizationForm.get('phone')?.hasError('pattern');
-    const passwordError = this.organizationForm.get('password')?.hasError('pattern');
     const passwordMismatchError = this.organizationForm.hasError('mismatch');
 
     if (phoneError) {
       this.snackBar.open('Enter a valid phone number (e.g., +34722680349)', 'Close', { duration: 3000 });
     }
 
-    if (passwordError) {
-      this.snackBar.open('Password must be at least 8 characters long, contain at least one number, one lowercase, one uppercase letter, and one special character.', 'Close', { duration: 3000 });
-    }
-
     if (passwordMismatchError) {
       this.snackBar.open('Passwords must match', 'Close', { duration: 3000 });
     }
 
-    if (!phoneError && !passwordError && !passwordMismatchError) {
+    if (!phoneError && !passwordMismatchError) {
       this.snackBar.open('Please fill out the form correctly', 'Close', { duration: 3000 });
     }
   }

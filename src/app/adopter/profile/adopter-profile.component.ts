@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AdopterProfileService } from '../adopter-profile.service';
 import { Adopter } from '../adopter-model';
 import { AuthService } from '@core/auth.service';
@@ -22,7 +22,6 @@ export class AdopterProfileComponent implements OnInit {
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute,
     private adopterProfileService: AdopterProfileService,
     private authService: AuthService
   ) {
@@ -31,19 +30,16 @@ export class AdopterProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAdopter();
-    this.setupPasswordChangeSubscribers();
   }
 
   private createAdopterForm(): FormGroup {
     return this.fb.group({
       email: [{ value: '', disabled: true }, [Validators.email]],
-      password: [''],
-      repeatPassword: [''],
       phone: ['', [Validators.pattern('^(\\+\\d{1,15})$')]],
       firstName: [''],
       lastName: [''],
       biography: ['']
-    }, { validators: this.passwordMatchValidator });
+    });
   }
 
   private loadAdopter(): void {
@@ -63,45 +59,14 @@ export class AdopterProfileComponent implements OnInit {
     }
   }
 
-  private setupPasswordChangeSubscribers(): void {
-    this.adopterForm.get('password')?.valueChanges.subscribe(() => {
-      const passwordControl = this.adopterForm.get('password');
-      const repeatPasswordControl = this.adopterForm.get('repeatPassword');
-      if (passwordControl?.value) {
-        repeatPasswordControl?.setValidators([Validators.required]);
-      } else {
-        repeatPasswordControl?.clearValidators();
-      }
-      repeatPasswordControl?.updateValueAndValidity();
-    });
-  }
-
-  private passwordMatchValidator: ValidatorFn = (formGroup: AbstractControl): ValidationErrors | null => {
-    const password = formGroup.get('password')?.value;
-    const repeatPassword = formGroup.get('repeatPassword')?.value;
-
-    if (password && repeatPassword && password !== repeatPassword) {
-      return { mismatch: true };
-    }
-    return null;
-  };
-
   updateAdopter() {
     if (this.adopterForm.valid) {
       const updatedAdopter = this.getUpdatedAdopter();
 
-      if (updatedAdopter.password && !this.adopterForm.hasError('mismatch')) {
-        const passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$/;
-        if (!passwordPattern.test(updatedAdopter.password)) {
-          this.snackBar.open('Password must be at least 8 characters long, contain at least one number, one lowercase, one uppercase letter, and one special character.', 'Close', { duration: 3000 });
-          return;
-        }
-      }
-
       this.adopterProfileService.updateAdopter(this.adopter.adopterUuid, updatedAdopter).subscribe({
         next: () => {
           this.snackBar.open('Adopter updated successfully', 'Close', { duration: 3000 });
-          this.router.navigate(['/adopter/dashboard']).then();
+          this.router.navigate(['/adopter/profile']).then();
         },
         error: (err) => {
           this.snackBar.open(`Error updating adopter: ${err.message}`, 'Close', { duration: 3000 });
@@ -162,22 +127,10 @@ export class AdopterProfileComponent implements OnInit {
 
   private handleFormErrors(): void {
     const phoneError = this.adopterForm.get('phone')?.hasError('pattern');
-    const passwordMismatchError = this.adopterForm.hasError('mismatch');
-    const repeatPasswordRequiredError = this.adopterForm.get('repeatPassword')?.hasError('required');
 
     if (phoneError) {
       this.snackBar.open('Enter a valid phone number (e.g., +34722680349)', 'Close', { duration: 3000 });
-    }
-
-    if (passwordMismatchError) {
-      this.snackBar.open('Passwords must match', 'Close', { duration: 3000 });
-    }
-
-    if (repeatPasswordRequiredError) {
-      this.snackBar.open('Repeat password is required', 'Close', { duration: 3000 });
-    }
-
-    if (!phoneError && !passwordMismatchError && !repeatPasswordRequiredError) {
+    } else {
       this.snackBar.open('Please fill out the form correctly', 'Close', { duration: 3000 });
     }
   }

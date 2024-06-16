@@ -1,0 +1,45 @@
+<div class="animal-detail-container">
+  <mat-card class="animal-detail-card">
+    <mat-card-content>
+      <form [formGroup]="animalForm">
+        <div class="animal-details">
+          <div class="animal-image">
+            <img src="assets/images/imageNotAvailable.png" alt="Animal Image">
+          </div>
+          <div class="animal-info">
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Type</mat-label>
+              <input matInput formControlName="type">
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Breed</mat-label>
+              <input matInput formControlName="breed">
+            </mat-form-field>
+            <mat-form-field class="full-width" appearance="fill">
+              <mat-label>Size</mat-label>
+              <input matInput formControlName="size">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="animal-basic-info">
+          <div class="basic-info-left">
+            <mat-form-field class="half-width" appearance="fill">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name">
+            </mat-form-field>
+            <mat-form-field class="half-width" appearance="fill">
+              <mat-label>Age</mat-label>
+              <input matInput formControlName="age" type="number">
+            </mat-form-field>
+          </div>
+          <div class="basic-info-right">
+            <mat-form-field class="full-width textarea-field" appearance="fill">
+              <mat-label>Characteristics</mat-label>
+              <textarea matInput formControlName="characteristics" rows="4"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

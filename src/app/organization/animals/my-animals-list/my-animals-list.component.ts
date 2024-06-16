@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Animal} from "../../../shared/models/animal.model";
-import {AnimalService} from "../animal.service";
+import {OrganizationAnimalService} from "../animal.service";
 
 @Component({
   selector: 'app-my-animals-list',
@@ -11,7 +11,7 @@ export class MyAnimalsListComponent implements OnInit {
 
   animals: Animal[] = [];
 
-  constructor(private animalService: AnimalService) {
+  constructor(private animalService: OrganizationAnimalService) {
   }
 
   ngOnInit(): void {

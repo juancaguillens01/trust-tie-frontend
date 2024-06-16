@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AnimalService } from 'app/organization/animals/animal.service';
+import { OrganizationAnimalService } from 'app/organization/animals/animal.service';
 import { Animal } from 'app/shared/models/animal.model';
 import {Size} from "../../../shared/models/size.model";
 
@@ -18,7 +18,7 @@ export class CreateAnimalComponent {
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private animalService: AnimalService,
+    private animalService: OrganizationAnimalService,
     private router: Router
   ) {
     this.createAnimalForm = this.createForm();

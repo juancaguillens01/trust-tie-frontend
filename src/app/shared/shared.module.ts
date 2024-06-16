@@ -10,9 +10,10 @@ import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { AnimalDetailComponent } from './components/animals/animal-detail.component';
 
 @NgModule({
-  declarations: [HeaderComponent, OrganizationProfileComponent, ConfirmDialogComponent],
+  declarations: [HeaderComponent, OrganizationProfileComponent, ConfirmDialogComponent, AnimalDetailComponent],
   imports: [CommonModule, MatToolbarModule, RouterLink, MatButtonModule, RouterLinkActive, ReactiveFormsModule, MatInputModule, MatCardModule, MatDialogModule],
   exports: [HeaderComponent]
 })

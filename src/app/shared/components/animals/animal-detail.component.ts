@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Animal } from 'app/shared/models/animal.model';
 import { AnimalService } from 'app/shared/services/animal.service';
-import { OrganizationAnimalService } from "../../../organization/animals/animal.service";
+import { OrganizationAnimalService } from 'app/organization/animals/animal.service';
+import { OrganizationProfileService } from 'app/shared/services/organization-profile.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'app/shared/dialogs/confirm-dialog.component';
@@ -28,6 +29,7 @@ export class AnimalDetailComponent implements OnInit {
     private fb: FormBuilder,
     private animalService: AnimalService,
     private organizationAnimalService: OrganizationAnimalService,
+    private organizationProfileService: OrganizationProfileService,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private router: Router,
@@ -47,24 +49,46 @@ export class AnimalDetailComponent implements OnInit {
     this.route.data.subscribe((data: AnimalDetailRouteData) => {
       this.isOrganization = data.isOrganization;
       this.setFormState();
-    });
 
-    this.route.paramMap.subscribe(params => {
-      const animalUuid = params.get('animalUuid');
-      if (animalUuid) {
-        this.loadAnimal(animalUuid);
+      this.route.paramMap.subscribe(params => {
+        const animalUuid = params.get('animalUuid');
+        if (animalUuid) {
+          if (this.isOrganization) {
+            this.checkOrganizationAndLoadAnimal(animalUuid);
+          } else {
+            this.loadAnimal(animalUuid);
+          }
+        }
+      });
+    });
+  }
+
+  private checkOrganizationAndLoadAnimal(animalUuid: string): void {
+    this.organizationProfileService.getOrganization().subscribe({
+      next: (organization) => {
+        this.loadAnimal(animalUuid, organization.organizationUuid);
+      },
+      error: (err) => {
+        this.snackBar.open(`Failed to load organization details: ${err.message}`, 'Close', { duration: 3000 });
+        this.router.navigate(['/organization/dashboard']).then();
       }
     });
   }
 
-  private loadAnimal(animalUuid: string): void {
+  private loadAnimal(animalUuid: string, organizationUuid?: string): void {
     this.animalService.getAnimal(animalUuid).subscribe({
       next: (animal) => {
-        this.animal = animal;
-        this.animalForm.patchValue(animal);
+        if (!organizationUuid || animal.organizationUuid === organizationUuid) {
+          this.animal = animal;
+          this.animalForm.patchValue(animal);
+        } else {
+          this.snackBar.open('You do not have access to view this animal.', 'Close', { duration: 3000 });
+          this.router.navigate(['/organization/dashboard']).then();
+        }
       },
       error: (err) => {
         this.snackBar.open(`Failed to load animal: ${err.message}`, 'Close', { duration: 3000 });
+        this.router.navigate(['/organization/my-animals-list']).then();
       }
     });
   }
@@ -83,7 +107,7 @@ export class AnimalDetailComponent implements OnInit {
       this.organizationAnimalService.updateAnimal(updatedAnimal).subscribe({
         next: () => {
           this.snackBar.open('Animal updated successfully', 'Close', { duration: 3000 });
-          this.loadAnimal(this.animal.animalUuid); // Recarga los datos del animal actualizado
+          this.loadAnimal(this.animal.animalUuid, this.animal.organizationUuid);
         },
         error: (err) => {
           this.snackBar.open(`Failed to update animal: ${err.message}`, 'Close', { duration: 3000 });

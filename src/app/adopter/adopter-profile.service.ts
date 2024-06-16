@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "@core/http.service";
-import { Router } from "@angular/router";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { Adopter } from "./adopter-model";
 import { Observable } from "rxjs";
 import {environment} from "../../environments/environment";

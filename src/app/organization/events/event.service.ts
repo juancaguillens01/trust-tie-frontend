@@ -3,7 +3,6 @@ import {environment} from "../../../environments/environment";
 import {HttpService} from "@core/http.service";
 import {Observable} from "rxjs";
 import {Event} from "../../shared/models/event.model";
-import {Animal} from "../../shared/models/animal.model";
 
 @Injectable({
   providedIn: 'root'

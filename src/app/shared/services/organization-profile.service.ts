@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "@core/http.service";
-import { Router } from "@angular/router";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { Organization } from "../models/organization.model";
 import { environment } from "../../../environments/environment";
 import { Observable } from "rxjs";
@@ -14,7 +12,7 @@ export class OrganizationProfileService {
   static readonly UPDATE_ORGANIZATION = environment.REST + "/organizations/";
   static readonly DELETE_ORGANIZATION = environment.REST + "/organizations/";
 
-  constructor(private httpService: HttpService, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(private httpService: HttpService) {}
 
   getOrganization(): Observable<Organization> {
     return this.httpService.get(OrganizationProfileService.GET_ORGANIZATION);

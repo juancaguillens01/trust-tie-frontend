@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Animal} from "../../shared/models/animal.model";
-import {AnimalService} from "./animal.service";
+import {Animal} from "../../../shared/models/animal.model";
+import {AnimalService} from "../animal.service";
 
 @Component({
   selector: 'app-my-animals-list',

@@ -14,7 +14,7 @@ export class AdopterProfileService {
   static readonly UPDATE_ADOPTER = environment.REST + "/adopters/";
   static readonly DELETE_ADOPTER = environment.REST + "/adopters/";
 
-  constructor(private httpService: HttpService, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(private httpService: HttpService) {}
 
   getAdopter(): Observable<Adopter> {
     return this.httpService.get(AdopterProfileService.GET_ADOPTER);

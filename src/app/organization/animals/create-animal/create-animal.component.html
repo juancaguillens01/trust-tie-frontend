@@ -1,0 +1,52 @@
+<div class="create-animal-container">
+  <mat-card class="create-animal-card">
+    <div class="create-animal-header">
+      <img src="assets/images/favicon.png" alt="TrustTie Logo" class="create-animal-logo">
+    </div>
+    <mat-card-content>
+      <form [formGroup]="createAnimalForm">
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" type="text" required>
+          <mat-error *ngIf="createAnimalForm.get('name').hasError('required')">Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Type</mat-label>
+          <input matInput formControlName="type" type="text" required>
+          <mat-error *ngIf="createAnimalForm.get('type').hasError('required')">Type is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Breed</mat-label>
+          <input matInput formControlName="breed" type="text" required>
+          <mat-error *ngIf="createAnimalForm.get('breed').hasError('required')">Breed is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Age</mat-label>
+          <input matInput formControlName="age" type="number" required>
+          <mat-error *ngIf="createAnimalForm.get('age').hasError('required')">Age is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Size</mat-label>
+          <mat-select formControlName="size">
+            <mat-option *ngFor="let size of sizes" [value]="size">{{ size }}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="createAnimalForm.get('size').hasError('required')">Size is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width textarea-field" appearance="fill">
+          <mat-label>Characteristics</mat-label>
+          <textarea matInput formControlName="characteristics" rows="4" required></textarea>
+          <mat-error *ngIf="createAnimalForm.get('characteristics').hasError('required')">Characteristics are required</mat-error>
+        </mat-form-field>
+
+        <div class="create-animal-actions">
+          <button mat-raised-button color="primary" (click)="createAnimal()">Create Animal</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

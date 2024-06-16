@@ -6,19 +6,25 @@ import { OrganizationDashboardComponent } from './organization-dashboard/organiz
 import {MatButtonModule} from "@angular/material/button";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {SharedModule} from "../shared/shared.module";
+import { MyAnimalsListComponent } from './animals/my-animals-list.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatListModule} from "@angular/material/list";
 
 
 @NgModule({
   declarations: [
     OrganizationComponent,
-    OrganizationDashboardComponent
+    OrganizationDashboardComponent,
+    MyAnimalsListComponent
   ],
   imports: [
     CommonModule,
     OrganizationRoutingModule,
     MatButtonModule,
     MatToolbarModule,
-    SharedModule
+    SharedModule,
+    MatCardModule,
+    MatListModule
   ]
 })
 export class OrganizationModule { }

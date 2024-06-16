@@ -4,11 +4,13 @@ import { OrganizationComponent } from './organization.component';
 import { OrganizationDashboardComponent } from './organization-dashboard/organization-dashboard.component';
 import { OrganizationGuard } from '@core/guards/organization.guard';
 import {OrganizationProfileComponent} from "../shared/components/organization-profile/organization-profile.component";
+import {MyAnimalsListComponent} from "./animals/my-animals-list.component";
 
 const routes: Routes = [
   { path: '', component: OrganizationComponent, children: [
       { path: 'dashboard', component: OrganizationDashboardComponent, canActivate: [OrganizationGuard] },
-      { path: 'profile', component: OrganizationProfileComponent, canActivate: [OrganizationGuard] }
+      { path: 'profile', component: OrganizationProfileComponent, canActivate: [OrganizationGuard] },
+      { path: 'my-animals-list', component: MyAnimalsListComponent, canActivate: [OrganizationGuard] },
     ]}
 ];
 

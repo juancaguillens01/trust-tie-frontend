@@ -12,10 +12,12 @@ import { ConfirmDialogComponent } from './dialogs/confirm-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { AnimalDetailComponent } from './components/animals/animal-detail.component';
 import {MatSelectModule} from "@angular/material/select";
+import { EventDetailComponent } from './components/events/event-detail.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
-  declarations: [HeaderComponent, OrganizationProfileComponent, ConfirmDialogComponent, AnimalDetailComponent],
-  imports: [CommonModule, MatToolbarModule, RouterLink, MatButtonModule, RouterLinkActive, ReactiveFormsModule, MatInputModule, MatCardModule, MatDialogModule, MatSelectModule],
+  declarations: [HeaderComponent, OrganizationProfileComponent, ConfirmDialogComponent, AnimalDetailComponent, EventDetailComponent],
+    imports: [CommonModule, MatToolbarModule, RouterLink, MatButtonModule, RouterLinkActive, ReactiveFormsModule, MatInputModule, MatCardModule, MatDialogModule, MatSelectModule, MatDatepickerModule],
   exports: [HeaderComponent]
 })
 export class SharedModule {}

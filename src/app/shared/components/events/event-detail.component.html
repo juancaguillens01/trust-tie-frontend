@@ -1,0 +1,35 @@
+<div class="event-detail-container">
+  <mat-card class="event-detail-card">
+    <mat-card-content>
+      <div class="event-image">
+        <img src="assets/images/imageNotAvailable.png" alt="Event Image">
+      </div>
+      <form [formGroup]="eventForm">
+        <div class="event-info">
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Event Date</mat-label>
+            <input matInput formControlName="eventDate" [matDatepicker]="picker" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="full-width textarea-field" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" rows="4"></textarea>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Event Location</mat-label>
+            <input matInput formControlName="eventLocation">
+          </mat-form-field>
+        </div>
+        <div *ngIf="isOrganization" class="event-actions">
+          <button mat-raised-button color="warn" (click)="deleteEvent()">Delete Event</button>
+          <button mat-raised-button color="primary" class="update-button" (click)="updateEvent()">Update Event</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

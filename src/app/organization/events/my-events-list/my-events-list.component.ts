@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Event} from "../../../shared/models/event.model";
-import {EventService} from "../event.service";
+import {OrganizationEventService} from "../event.service";
 
 @Component({
   selector: 'app-my-events-list',
@@ -11,7 +11,7 @@ export class MyEventsListComponent implements OnInit {
 
   events: Event[] = [];
 
-  constructor(private eventService: EventService) {
+  constructor(private eventService: OrganizationEventService) {
   }
 
   ngOnInit(): void {

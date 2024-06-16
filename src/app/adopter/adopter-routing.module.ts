@@ -10,6 +10,7 @@ import {AnimalsListComponent} from './animals/animals-list.component';
 import {GuestGuard} from '@core/guards/guest.guard';
 import {EventsListComponent} from './events/events-list.component';
 import {AnimalDetailComponent} from '../shared/components/animals/animal-detail.component';
+import {EventDetailComponent} from "../shared/components/events/event-detail.component";
 
 const routes: Routes = [
   {
@@ -22,6 +23,12 @@ const routes: Routes = [
       {
         path: 'animal-detail/:animalUuid',
         component: AnimalDetailComponent,
+        canActivate: [GuestGuard],
+        data: {isOrganization: false}
+      },
+      {
+        path: 'event-detail/:eventUuid',
+        component: EventDetailComponent,
         canActivate: [GuestGuard],
         data: {isOrganization: false}
       }

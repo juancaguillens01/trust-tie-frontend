@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { EventService } from 'app/organization/events/event.service';
+import { OrganizationEventService } from 'app/organization/events/event.service';
 import { Event } from 'app/shared/models/event.model';
 
 @Component({
@@ -16,7 +16,7 @@ export class CreateEventComponent {
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private eventService: EventService,
+    private eventService: OrganizationEventService,
     private router: Router
   ) {
     this.createEventForm = this.createForm();
@@ -42,7 +42,7 @@ export class CreateEventComponent {
     if (this.createEventForm.valid) {
       const eventData: Event = this.createEventForm.value;
       this.eventService.createEvent(eventData).subscribe({
-        next: () => this.handleSuccess(),
+        next: (event) => this.handleSuccess(event),
         error: (err) => this.handleError(err)
       });
     } else {
@@ -50,9 +50,9 @@ export class CreateEventComponent {
     }
   }
 
-  private handleSuccess(): void {
+  private handleSuccess(event: Event): void {
     this.snackBar.open('Event added successfully', 'Close', { duration: 3000 });
-    this.router.navigate(['/organization/my-events-list']).then();
+    this.router.navigate(['/organization/event-detail', event.eventUuid]).then();
   }
 
   private handleError(err: any): void {

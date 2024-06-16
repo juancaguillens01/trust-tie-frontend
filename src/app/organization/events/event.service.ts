@@ -7,18 +7,26 @@ import {Event} from "../../shared/models/event.model";
 @Injectable({
   providedIn: 'root'
 })
-export class EventService {
+export class OrganizationEventService {
 
   static readonly GET_MY_EVENTS = environment.REST + "/events/my-events";
-  static readonly CREATE_EVENT = environment.REST + "/events";
+  static readonly BASE_URL = environment.REST + "/events";
 
   constructor(private httpService: HttpService) { }
 
   getMyEvents(): Observable<Event[]> {
-    return this.httpService.get(EventService.GET_MY_EVENTS);
+    return this.httpService.get(OrganizationEventService.GET_MY_EVENTS);
   }
 
   createEvent(event: Event): Observable<Event> {
-    return this.httpService.post(EventService.CREATE_EVENT, event);
+    return this.httpService.post(OrganizationEventService.BASE_URL, event);
+  }
+
+  updateEvent(event: Event): Observable<Event> {
+    return this.httpService.put(`${OrganizationEventService.BASE_URL}/${event.eventUuid}`, event);
+  }
+
+  deleteEvent(eventUuid: string): Observable<void> {
+    return this.httpService.delete(`${OrganizationEventService.BASE_URL}/${eventUuid}`);
   }
 }

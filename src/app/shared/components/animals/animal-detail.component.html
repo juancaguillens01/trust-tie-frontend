@@ -17,7 +17,9 @@
             </mat-form-field>
             <mat-form-field class="full-width" appearance="fill">
               <mat-label>Size</mat-label>
-              <input matInput formControlName="size">
+              <mat-select formControlName="size">
+                <mat-option *ngFor="let size of sizes" [value]="size">{{ size }}</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
         </div>
@@ -38,6 +40,10 @@
               <textarea matInput formControlName="characteristics" rows="4"></textarea>
             </mat-form-field>
           </div>
+        </div>
+        <div *ngIf="isOrganization" class="animal-actions">
+          <button mat-raised-button color="warn" (click)="deleteAnimal()">Delete Animal</button>
+          <button mat-raised-button color="primary" class="update-button" (click)="updateAnimal()">Update Animal</button>
         </div>
       </form>
     </mat-card-content>

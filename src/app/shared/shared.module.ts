@@ -11,10 +11,11 @@ import {MatCardModule} from "@angular/material/card";
 import { ConfirmDialogComponent } from './dialogs/confirm-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { AnimalDetailComponent } from './components/animals/animal-detail.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [HeaderComponent, OrganizationProfileComponent, ConfirmDialogComponent, AnimalDetailComponent],
-  imports: [CommonModule, MatToolbarModule, RouterLink, MatButtonModule, RouterLinkActive, ReactiveFormsModule, MatInputModule, MatCardModule, MatDialogModule],
+  imports: [CommonModule, MatToolbarModule, RouterLink, MatButtonModule, RouterLinkActive, ReactiveFormsModule, MatInputModule, MatCardModule, MatDialogModule, MatSelectModule],
   exports: [HeaderComponent]
 })
 export class SharedModule {}

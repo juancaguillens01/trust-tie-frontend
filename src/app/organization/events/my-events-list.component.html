@@ -1,0 +1,26 @@
+<div class="my-events-container">
+  <div class="my-events-header">
+    <h2 class="my-events-title">My Events List</h2>
+    <button mat-raised-button color="primary" routerLink="/organization/create-event" class="add-event-button">
+      Add a new event
+    </button>
+  </div>
+  <div *ngIf="events.length > 0; else noEvents" class="event-list">
+    <mat-card *ngFor="let event of events" class="event-card mb-3">
+      <img mat-card-image src="../../../assets/images/imageNotAvailable.png" alt="{{ event.title }}">
+      <div class="event-card-header">
+        <mat-card-title class="text-center">{{ event.title }}</mat-card-title>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <p><strong>Location:</strong> {{ event.eventLocation }}</p>
+        <p><strong>Date:</strong> {{ event.eventDate | date }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <ng-template #noEvents>
+    <div class="no-events-container text-center">
+      <p>You don't have any events yet.</p>
+    </div>
+  </ng-template>
+</div>

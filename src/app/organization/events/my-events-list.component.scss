@@ -1,0 +1,79 @@
+.my-events-container {
+  padding: 20px;
+}
+
+.my-events-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 20px 0;
+}
+
+.my-events-title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #3f51b5;
+  text-transform: uppercase;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 24px 0;
+}
+
+.add-event-button {
+  margin-left: auto;
+}
+
+.event-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.event-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-bottom: 20px;
+}
+
+.event-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.no-events-container {
+  padding: 20px;
+  font-size: 1.2em;
+  color: #666;
+}
+
+img[mat-card-image] {
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  object-fit: cover;
+}
+
+.event-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+mat-card-title {
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+
+mat-card-content p {
+  margin: 5px 0;
+  font-size: 1.1em;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+mat-divider {
+  margin: 10px 0;
+}

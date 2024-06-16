@@ -9,13 +9,15 @@ import {SharedModule} from "../shared/shared.module";
 import { MyAnimalsListComponent } from './animals/my-animals-list.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
+import { MyEventsListComponent } from './events/my-events-list.component';
 
 
 @NgModule({
   declarations: [
     OrganizationComponent,
     OrganizationDashboardComponent,
-    MyAnimalsListComponent
+    MyAnimalsListComponent,
+    MyEventsListComponent
   ],
   imports: [
     CommonModule,

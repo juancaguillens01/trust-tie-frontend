@@ -1,0 +1,41 @@
+<div class="create-event-container">
+  <mat-card class="create-event-card">
+    <div class="create-event-header">
+      <img src="assets/images/favicon.png" alt="TrustTie Logo" class="create-event-logo">
+    </div>
+    <mat-card-content>
+      <form [formGroup]="createEventForm">
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" type="text" required>
+          <mat-error *ngIf="createEventForm.get('title').hasError('required')">Title is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width textarea-field" appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" rows="4" required></textarea>
+          <mat-error *ngIf="createEventForm.get('description').hasError('required')">Description is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Event Date</mat-label>
+          <input matInput formControlName="eventDate" [matDatepicker]="picker" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="createEventForm.get('eventDate').hasError('required')">Event Date is required</mat-error>
+          <mat-error *ngIf="createEventForm.get('eventDate').hasError('invalidDate')">Event Date must be in the future</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Event Location</mat-label>
+          <input matInput formControlName="eventLocation" type="text" required>
+          <mat-error *ngIf="createEventForm.get('eventLocation').hasError('required')">Event Location is required</mat-error>
+        </mat-form-field>
+
+        <div class="create-event-actions">
+          <button mat-raised-button color="primary" (click)="createEvent()">Create Event</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

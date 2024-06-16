@@ -5,8 +5,9 @@ import { OrganizationDashboardComponent } from './organization-dashboard/organiz
 import { OrganizationGuard } from '@core/guards/organization.guard';
 import {OrganizationProfileComponent} from "../shared/components/organization-profile/organization-profile.component";
 import {MyAnimalsListComponent} from "./animals/my-animals-list/my-animals-list.component";
-import {MyEventsListComponent} from "./events/my-events-list.component";
+import {MyEventsListComponent} from "./events/my-events-list/my-events-list.component";
 import {CreateAnimalComponent} from "./animals/create-animal/create-animal.component";
+import {CreateEventComponent} from "./events/create-event/create-event.component";
 
 const routes: Routes = [
   { path: '', component: OrganizationComponent, children: [
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'my-animals-list', component: MyAnimalsListComponent, canActivate: [OrganizationGuard] },
       { path: 'create-animal', component: CreateAnimalComponent, canActivate: [OrganizationGuard] },
       { path: 'my-events-list', component: MyEventsListComponent, canActivate: [OrganizationGuard] },
+      { path: 'create-event', component: CreateEventComponent, canActivate: [OrganizationGuard] },
     ]}
 ];
 

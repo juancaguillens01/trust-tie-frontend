@@ -1,0 +1,21 @@
+<div class="events-container">
+  <h2 class="events-title text-center my-4">Events List</h2>
+  <div *ngIf="events.length > 0; else noEvents" class="event-list">
+    <mat-card *ngFor="let event of events" class="event-card mb-3">
+      <img mat-card-image src="../../../assets/images/imageNotAvailable.png" alt="{{ event.title }}">
+      <div class="event-card-header">
+        <mat-card-title class="text-center">{{ event.title }}</mat-card-title>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <p><strong>Location:</strong> {{ event.eventLocation }}</p>
+        <p><strong>Date:</strong> {{ event.eventDate | date }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <ng-template #noEvents>
+    <div class="no-events-container text-center">
+      <p>No events available</p>
+    </div>
+  </ng-template>
+</div>

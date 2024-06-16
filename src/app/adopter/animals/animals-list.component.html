@@ -2,7 +2,7 @@
   <h2 class="animals-title text-center my-4">Animals List</h2>
   <div *ngIf="animals.length > 0; else noAnimals" class="animal-list">
     <mat-card *ngFor="let animal of animals" class="animal-card mb-3">
-      <img mat-card-image src="assets/images/defaultAnimal.png" alt="{{ animal.name }}">
+      <img mat-card-image src="../../../assets/images/imageNotAvailable.png" alt="{{ animal.name }}">
       <div class="animal-card-header">
         <mat-card-title class="text-center">{{ animal.name }}</mat-card-title>
       </div>

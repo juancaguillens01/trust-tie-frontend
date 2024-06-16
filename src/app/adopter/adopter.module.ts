@@ -15,6 +15,7 @@ import {SharedModule} from "../shared/shared.module";
 import { AdopterProfileComponent } from './profile/adopter-profile.component';
 import { AnimalsListComponent } from './animals/animals-list.component';
 import {MatListModule} from "@angular/material/list";
+import { EventsListComponent } from './events/events-list.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {MatListModule} from "@angular/material/list";
     LoginComponent,
     RegisterComponent,
     AdopterProfileComponent,
-    AnimalsListComponent
+    AnimalsListComponent,
+    EventsListComponent
   ],
     imports: [
         CommonModule,

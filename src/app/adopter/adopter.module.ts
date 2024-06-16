@@ -14,6 +14,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {SharedModule} from "../shared/shared.module";
 import { AdopterProfileComponent } from './profile/adopter-profile.component';
 import { AnimalsListComponent } from './animals/animals-list.component';
+import {MatListModule} from "@angular/material/list";
 
 
 @NgModule({
@@ -24,18 +25,19 @@ import { AnimalsListComponent } from './animals/animals-list.component';
     AdopterProfileComponent,
     AnimalsListComponent
   ],
-  imports: [
-    CommonModule,
-    AdopterRoutingModule,
-    MatButtonModule,
-    MatToolbarModule,
-    NgOptimizedImage,
-    MatCardModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatOptionModule,
-    MatSelectModule,
-    SharedModule
-  ]
+    imports: [
+        CommonModule,
+        AdopterRoutingModule,
+        MatButtonModule,
+        MatToolbarModule,
+        NgOptimizedImage,
+        MatCardModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatOptionModule,
+        MatSelectModule,
+        SharedModule,
+        MatListModule
+    ]
 })
 export class AdopterModule { }

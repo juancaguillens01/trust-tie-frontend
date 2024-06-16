@@ -1,0 +1,64 @@
+.animals-container {
+  padding: 20px;
+}
+
+.animals-title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #3f51b5;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.animal-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.animal-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-bottom: 20px;
+}
+
+.animal-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.no-animals-container {
+  padding: 20px;
+  font-size: 1.2em;
+  color: #666;
+}
+
+img[mat-card-image] {
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  object-fit: cover;
+}
+
+.animal-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px; /* Adjusted height */
+}
+
+mat-card-title {
+  font-size: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+
+mat-card-content p {
+  margin: 5px 0;
+  font-size: 1.1em;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+mat-divider {
+  margin: 10px 0;
+}

@@ -9,8 +9,8 @@ import {map} from 'rxjs/operators';
 import {User} from '@core/user.model';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Role} from "@core/role.model";
-import {RegisterAdopter} from "@core/register.adopter.model";
-import {RegisterOrganization} from "@core/register.organization.model";
+import {RegisterAdopter} from "@core/register-adopter.model";
+import {RegisterOrganization} from "@core/register-organization.model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({

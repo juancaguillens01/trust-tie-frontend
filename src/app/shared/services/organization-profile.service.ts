@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpService } from "@core/http.service";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Organization } from "../models/organization-model";
+import { Organization } from "../models/organization.model";
 import { environment } from "../../../environments/environment";
 import { Observable } from "rxjs";
 

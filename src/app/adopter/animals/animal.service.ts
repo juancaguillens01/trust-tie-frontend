@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpService} from "@core/http.service";
-import {Animal} from "../../shared/models/animal-model";
+import {Animal} from "../../shared/models/animal.model";
 import {Observable} from "rxjs";
 
 @Injectable({

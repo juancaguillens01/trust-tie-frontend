@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'app/core/auth.service';
-import { RegisterAdopter } from 'app/core/register.adopter.model';
-import { RegisterOrganization } from 'app/core/register.organization.model';
+import { RegisterAdopter } from '@core/register-adopter.model';
+import { RegisterOrganization } from '@core/register-organization.model';
 
 @Component({
   selector: 'app-register',

@@ -4,7 +4,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {Router, ActivatedRoute} from '@angular/router';
 import {OrganizationProfileService} from '../../services/organization-profile.service';
-import {Organization} from '../../models/organization-model';
+import {Organization} from '../../models/organization.model';
 import {AuthService} from '@core/auth.service';
 import {ConfirmDialogComponent} from '../../dialogs/confirm-dialog.component';
 

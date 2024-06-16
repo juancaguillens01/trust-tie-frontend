@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { OrganizationAnimalService } from 'app/organization/animals/animal.service';
 import { Animal } from 'app/shared/models/animal.model';
-import {Size} from "../../../shared/models/size.model";
+import { Size } from 'app/shared/models/size.model';
 
 @Component({
   selector: 'app-create-animal',
@@ -39,7 +39,7 @@ export class CreateAnimalComponent {
     if (this.createAnimalForm.valid) {
       const animalData: Animal = this.createAnimalForm.value;
       this.animalService.createAnimal(animalData).subscribe({
-        next: () => this.handleSuccess(),
+        next: (animal) => this.handleSuccess(animal),
         error: (err) => this.handleError(err)
       });
     } else {
@@ -47,9 +47,9 @@ export class CreateAnimalComponent {
     }
   }
 
-  private handleSuccess(): void {
+  private handleSuccess(animal: Animal): void {
     this.snackBar.open('Animal added successfully', 'Close', { duration: 3000 });
-    this.router.navigate(['/organization/my-animals-list']).then();
+    this.router.navigate(['/organization/animal-detail', animal.animalUuid]).then();
   }
 
   private handleError(err: any): void {

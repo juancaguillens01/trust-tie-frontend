@@ -52,15 +52,19 @@ export class AnimalDetailComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const animalUuid = params.get('animalUuid');
       if (animalUuid) {
-        this.animalService.getAnimal(animalUuid).subscribe({
-          next: (animal) => {
-            this.animal = animal;
-            this.animalForm.patchValue(animal);
-          },
-          error: (err) => {
-            this.snackBar.open(`Failed to load animal: ${err.message}`, 'Close', { duration: 3000 });
-          }
-        });
+        this.loadAnimal(animalUuid);
+      }
+    });
+  }
+
+  private loadAnimal(animalUuid: string): void {
+    this.animalService.getAnimal(animalUuid).subscribe({
+      next: (animal) => {
+        this.animal = animal;
+        this.animalForm.patchValue(animal);
+      },
+      error: (err) => {
+        this.snackBar.open(`Failed to load animal: ${err.message}`, 'Close', { duration: 3000 });
       }
     });
   }
@@ -79,7 +83,7 @@ export class AnimalDetailComponent implements OnInit {
       this.organizationAnimalService.updateAnimal(updatedAnimal).subscribe({
         next: () => {
           this.snackBar.open('Animal updated successfully', 'Close', { duration: 3000 });
-          this.router.navigate(['/organization/my-animals-list']).then();
+          this.loadAnimal(this.animal.animalUuid); // Recarga los datos del animal actualizado
         },
         error: (err) => {
           this.snackBar.open(`Failed to update animal: ${err.message}`, 'Close', { duration: 3000 });

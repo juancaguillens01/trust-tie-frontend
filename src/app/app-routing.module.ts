@@ -10,7 +10,7 @@ const routes: Routes = [
     path: 'organization',
     loadChildren: () => import('./organization/organization.module').then(m => m.OrganizationModule)
   },
-  {path: '**', redirectTo: 'adopter'},
+  {path: '**', redirectTo: 'adopter/home'},
 ];
 
 @NgModule({

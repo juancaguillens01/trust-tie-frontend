@@ -11,10 +11,12 @@ import {GuestGuard} from '@core/guards/guest.guard';
 import {EventsListComponent} from './events/events-list.component';
 import {AnimalDetailComponent} from '../shared/components/animals/animal-detail.component';
 import {EventDetailComponent} from "../shared/components/events/event-detail.component";
+import {HomeComponent} from "./home/home.component";
 
 const routes: Routes = [
   {
     path: '', component: AdopterComponent, children: [
+      {path: 'home', component: HomeComponent, canActivate: [GuestGuard]},
       {path: 'login', component: LoginComponent, canActivate: [LoggedInGuard]},
       {path: 'register', component: RegisterComponent, canActivate: [LoggedInGuard]},
       {path: 'profile', component: AdopterProfileComponent, canActivate: [AdopterGuard]},

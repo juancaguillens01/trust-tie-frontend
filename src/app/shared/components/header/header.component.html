@@ -5,7 +5,7 @@
   </div>
   <div class="header-middle d-flex">
     <ng-container *ngIf="!isLoggedIn(); else loggedInLinks">
-      <button mat-button routerLink="/adopter" routerLinkActive="active-link"
+      <button mat-button routerLink="/adopter/home" routerLinkActive="active-link"
               [routerLinkActiveOptions]="{ exact: true }">Home
       </button>
       <button mat-button routerLink="/adopter/animals-list" routerLinkActive="active-link">Animals List</button>
@@ -13,7 +13,7 @@
     </ng-container>
     <ng-template #loggedInLinks>
       <ng-container *ngIf="isAdopter(); else organizationLinks">
-        <button mat-button routerLink="/adopter" routerLinkActive="active-link"
+        <button mat-button routerLink="/adopter/home" routerLinkActive="active-link"
                 [routerLinkActiveOptions]="{ exact: true }">Home
         </button>
         <button mat-button routerLink="/adopter/animals-list" routerLinkActive="active-link">Animals List</button>

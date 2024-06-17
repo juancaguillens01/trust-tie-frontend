@@ -8,7 +8,7 @@ export const OrganizationGuard: CanActivateFn = () => {
   if (authService.checkIsOrganization()) {
     return true;
   } else if (authService.checkIsAdopter()) {
-    router.navigate(['/adopter']).then();
+    router.navigate(['/adopter/home']).then();
     return false;
   } else {
     router.navigate(['/adopter/login']).then();

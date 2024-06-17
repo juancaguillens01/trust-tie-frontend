@@ -46,7 +46,7 @@ export class LoginComponent {
     if (this.authService.checkIsOrganization()) {
       this.router.navigate(['/organization/dashboard']).then();
     } else if (this.authService.checkIsAdopter()) {
-      this.router.navigate(['/adopter']).then();
+      this.router.navigate(['/adopter/home']).then();
     }
   }
 

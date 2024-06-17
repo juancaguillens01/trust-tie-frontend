@@ -121,7 +121,7 @@ export class RegisterComponent {
   private handleSuccess(role: string): void {
     this.snackBar.open('Registration successful', 'Close', { duration: 3000 });
     if (role === 'Adopter') {
-      this.router.navigate(['/adopter']).then();
+      this.router.navigate(['/adopter/home']).then();
     } else if (role === 'Organization') {
       this.router.navigate(['/organization/dashboard']).then();
     }

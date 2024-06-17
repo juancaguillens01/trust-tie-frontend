@@ -11,7 +11,7 @@ export const LoggedInGuard: CanActivateFn = () => {
     router.navigate(['/organization/dashboard']).then();
     return false;
   } else if (authService.checkIsAdopter()) {
-    router.navigate(['/adopter']).then();
+    router.navigate(['/adopter/home']).then();
     return false;
   }
   return false;

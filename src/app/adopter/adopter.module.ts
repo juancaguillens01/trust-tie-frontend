@@ -17,7 +17,7 @@ import {AnimalsListComponent} from './animals/animals-list.component';
 import {MatListModule} from "@angular/material/list";
 import {EventsListComponent} from './events/events-list.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import { HomeComponent } from './home/home.component';
+import {HomeComponent} from './home/home.component';
 
 
 @NgModule({

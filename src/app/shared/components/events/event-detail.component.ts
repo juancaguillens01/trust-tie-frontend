@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Event } from 'app/shared/models/event.model';
-import { EventService } from 'app/shared/services/event.service';
-import { OrganizationEventService } from 'app/organization/events/event.service';
-import { OrganizationProfileService } from 'app/shared/services/organization-profile.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from 'app/shared/dialogs/confirm-dialog.component';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Event} from 'app/shared/models/event.model';
+import {EventService} from 'app/shared/services/event.service';
+import {OrganizationEventService} from 'app/organization/events/event.service';
+import {OrganizationProfileService} from 'app/shared/services/organization-profile.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmDialogComponent} from 'app/shared/dialogs/confirm-dialog.component';
 
 interface EventDetailRouteData {
   isOrganization: boolean;
@@ -65,7 +65,7 @@ export class EventDetailComponent implements OnInit {
         this.loadEvent(eventUuid, organization.organizationUuid);
       },
       error: (err) => {
-        this.snackBar.open(`Failed to load organization details: ${err.message}`, 'Close', { duration: 3000 });
+        this.snackBar.open(`Failed to load organization details: ${err.message}`, 'Close', {duration: 3000});
         this.router.navigate(['/organization/dashboard']).then();
       }
     });
@@ -81,12 +81,12 @@ export class EventDetailComponent implements OnInit {
             eventDate: new Date(event.eventDate) // Convert to Date object
           });
         } else {
-          this.snackBar.open('You do not have access to view this event.', 'Close', { duration: 3000 });
+          this.snackBar.open('You do not have access to view this event.', 'Close', {duration: 3000});
           this.router.navigate(['/organization/dashboard']).then();
         }
       },
       error: (err) => {
-        this.snackBar.open(`Failed to load event: ${err.message}`, 'Close', { duration: 3000 });
+        this.snackBar.open(`Failed to load event: ${err.message}`, 'Close', {duration: 3000});
         this.router.navigate(['/organization/my-events-list']).then();
       }
     });
@@ -104,7 +104,7 @@ export class EventDetailComponent implements OnInit {
     const inputDate = new Date(control.value);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    return inputDate >= today ? null : { invalidDate: true };
+    return inputDate >= today ? null : {invalidDate: true};
   }
 
   updateEvent() {
@@ -116,11 +116,11 @@ export class EventDetailComponent implements OnInit {
       };
       this.organizationEventService.updateEvent(updatedEvent).subscribe({
         next: () => {
-          this.snackBar.open('Event updated successfully', 'Close', { duration: 3000 });
+          this.snackBar.open('Event updated successfully', 'Close', {duration: 3000});
           this.loadEvent(this.event.eventUuid, this.event.organizationUuid);
         },
         error: (err) => {
-          this.snackBar.open(`Failed to update event: ${err.message}`, 'Close', { duration: 3000 });
+          this.snackBar.open(`Failed to update event: ${err.message}`, 'Close', {duration: 3000});
         }
       });
     }
@@ -129,18 +129,18 @@ export class EventDetailComponent implements OnInit {
   deleteEvent() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '300px',
-      data: { title: 'Confirm Delete', message: 'Are you sure you want to delete this event?' }
+      data: {title: 'Confirm Delete', message: 'Are you sure you want to delete this event?'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.organizationEventService.deleteEvent(this.event.eventUuid).subscribe({
           next: () => {
-            this.snackBar.open('Event deleted successfully', 'Close', { duration: 3000 });
+            this.snackBar.open('Event deleted successfully', 'Close', {duration: 3000});
             this.router.navigate(['/organization/my-events-list']).then();
           },
           error: (err) => {
-            this.snackBar.open(`Failed to delete event: ${err.message}`, 'Close', { duration: 3000 });
+            this.snackBar.open(`Failed to delete event: ${err.message}`, 'Close', {duration: 3000});
           }
         });
       }

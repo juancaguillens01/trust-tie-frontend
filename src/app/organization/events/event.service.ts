@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpService} from "@core/http.service";
 import {Observable} from "rxjs";
@@ -12,7 +12,8 @@ export class OrganizationEventService {
   static readonly GET_MY_EVENTS = environment.REST + "/events/my-events";
   static readonly BASE_URL = environment.REST + "/events";
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {
+  }
 
   getMyEvents(): Observable<Event[]> {
     return this.httpService.get(OrganizationEventService.GET_MY_EVENTS);

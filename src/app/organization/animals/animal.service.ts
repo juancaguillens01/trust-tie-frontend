@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { HttpService } from '@core/http.service';
-import { Observable } from 'rxjs';
-import { Animal } from '../../shared/models/animal.model';
+import {Injectable} from '@angular/core';
+import {environment} from '../../../environments/environment';
+import {HttpService} from '@core/http.service';
+import {Observable} from 'rxjs';
+import {Animal} from '../../shared/models/animal.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,8 @@ export class OrganizationAnimalService {
   static readonly GET_MY_ANIMALS = environment.REST + '/animals/my-animals';
   static readonly BASE_URL = environment.REST + '/animals';
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {
+  }
 
   getMyAnimals(): Observable<Animal[]> {
     return this.httpService.get(OrganizationAnimalService.GET_MY_ANIMALS);

@@ -6,7 +6,8 @@
     </button>
   </div>
   <div *ngIf="events.length > 0; else noEvents" class="event-list">
-    <mat-card *ngFor="let event of events" class="event-card mb-3" [routerLink]="['/organization/event-detail', event.eventUuid]">
+    <mat-card *ngFor="let event of events" class="event-card mb-3"
+              [routerLink]="['/organization/event-detail', event.eventUuid]">
       <img mat-card-image src="../../../../assets/images/imageNotAvailable.png" alt="{{ event.title }}">
       <div class="event-card-header">
         <mat-card-title class="text-center">{{ event.title }}</mat-card-title>

@@ -40,7 +40,8 @@
         <mat-form-field class="full-width textarea-field" appearance="fill">
           <mat-label>Characteristics</mat-label>
           <textarea matInput formControlName="characteristics" rows="4" required></textarea>
-          <mat-error *ngIf="createAnimalForm.get('characteristics').hasError('required')">Characteristics are required</mat-error>
+          <mat-error *ngIf="createAnimalForm.get('characteristics').hasError('required')">Characteristics are required
+          </mat-error>
         </mat-form-field>
 
         <div class="create-animal-actions">

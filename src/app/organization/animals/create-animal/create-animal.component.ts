@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { OrganizationAnimalService } from 'app/organization/animals/animal.service';
-import { Animal } from 'app/shared/models/animal.model';
-import { Size } from 'app/shared/models/size.model';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
+import {OrganizationAnimalService} from 'app/organization/animals/animal.service';
+import {Animal} from 'app/shared/models/animal.model';
+import {Size} from 'app/shared/models/size.model';
 
 @Component({
   selector: 'app-create-animal',
@@ -43,16 +43,16 @@ export class CreateAnimalComponent {
         error: (err) => this.handleError(err)
       });
     } else {
-      this.snackBar.open('Please fill out the form correctly', 'Close', { duration: 3000 });
+      this.snackBar.open('Please fill out the form correctly', 'Close', {duration: 3000});
     }
   }
 
   private handleSuccess(animal: Animal): void {
-    this.snackBar.open('Animal added successfully', 'Close', { duration: 3000 });
+    this.snackBar.open('Animal added successfully', 'Close', {duration: 3000});
     this.router.navigate(['/organization/animal-detail', animal.animalUuid]).then();
   }
 
   private handleError(err: any): void {
-    this.snackBar.open(`Animal addition failed: ${err.message}`, 'Close', { duration: 3000 });
+    this.snackBar.open(`Animal addition failed: ${err.message}`, 'Close', {duration: 3000});
   }
 }

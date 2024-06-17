@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { HttpService } from "@core/http.service";
-import { Organization } from "../models/organization.model";
-import { environment } from "../../../environments/environment";
-import { Observable } from "rxjs";
+import {Injectable} from "@angular/core";
+import {HttpService} from "@core/http.service";
+import {Organization} from "../models/organization.model";
+import {environment} from "../../../environments/environment";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,8 @@ export class OrganizationProfileService {
   static readonly UPDATE_ORGANIZATION = environment.REST + "/organizations/";
   static readonly DELETE_ORGANIZATION = environment.REST + "/organizations/";
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) {
+  }
 
   getOrganization(): Observable<Organization> {
     return this.httpService.get(OrganizationProfileService.GET_ORGANIZATION);

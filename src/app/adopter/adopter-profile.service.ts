@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpService } from "@core/http.service";
-import { Adopter } from "./adopter-model";
-import { Observable } from "rxjs";
+import {Injectable} from "@angular/core";
+import {HttpService} from "@core/http.service";
+import {Adopter} from "./adopter-model";
+import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -12,7 +12,8 @@ export class AdopterProfileService {
   static readonly UPDATE_ADOPTER = environment.REST + "/adopters/";
   static readonly DELETE_ADOPTER = environment.REST + "/adopters/";
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) {
+  }
 
   getAdopter(): Observable<Adopter> {
     return this.httpService.get(AdopterProfileService.GET_ADOPTER);

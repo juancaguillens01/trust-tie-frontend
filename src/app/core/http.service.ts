@@ -20,6 +20,7 @@ export class HttpService {
   private successfulNotification = undefined;
   private errorNotification = undefined;
   private showErrors: boolean = true;
+
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {
     this.resetOptions();
   }
@@ -151,7 +152,7 @@ export class HttpService {
   }
 
   private showError(notification: string): void {
-    if(this.showErrors) {
+    if (this.showErrors) {
       if (this.errorNotification) {
         this.snackBar.open(this.errorNotification, 'Error', {duration: 5000});
         this.errorNotification = undefined;

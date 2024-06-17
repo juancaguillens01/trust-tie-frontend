@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { AuthService } from 'app/core/auth.service';
-import { RegisterAdopter } from '@core/register-adopter.model';
-import { RegisterOrganization } from '@core/register-organization.model';
+import {Component} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
+import {AuthService} from 'app/core/auth.service';
+import {RegisterAdopter} from '@core/register-adopter.model';
+import {RegisterOrganization} from '@core/register-organization.model';
 
 @Component({
   selector: 'app-register',
@@ -42,7 +42,7 @@ export class RegisterComponent {
       firstName: [''],
       lastName: [''],
       name: ['']
-    }, { validators: this.passwordMatchValidator });
+    }, {validators: this.passwordMatchValidator});
   }
 
   private setupRoleChangeSubscriber(): void {
@@ -75,7 +75,7 @@ export class RegisterComponent {
   private passwordMatchValidator: ValidatorFn = (formGroup: AbstractControl): ValidationErrors | null => {
     const password = formGroup.get('password')?.value;
     const repeatPassword = formGroup.get('repeatPassword')?.value;
-    return password === repeatPassword ? null : { mismatch: true };
+    return password === repeatPassword ? null : {mismatch: true};
   };
 
   register() {
@@ -119,7 +119,7 @@ export class RegisterComponent {
   }
 
   private handleSuccess(role: string): void {
-    this.snackBar.open('Registration successful', 'Close', { duration: 3000 });
+    this.snackBar.open('Registration successful', 'Close', {duration: 3000});
     if (role === 'Adopter') {
       this.router.navigate(['/adopter/home']).then();
     } else if (role === 'Organization') {
@@ -128,7 +128,7 @@ export class RegisterComponent {
   }
 
   private handleError(err: any): void {
-    this.snackBar.open(`Registration failed: ${err.message}`, 'Close', { duration: 3000 });
+    this.snackBar.open(`Registration failed: ${err.message}`, 'Close', {duration: 3000});
   }
 
   private handleFormErrors(): void {
@@ -138,19 +138,19 @@ export class RegisterComponent {
     const passwordMismatchError = this.registerForm.hasError('mismatch');
 
     if (phoneError) {
-      this.snackBar.open('Enter a valid phone number (e.g., +34722680349)', 'Close', { duration: 3000 });
+      this.snackBar.open('Enter a valid phone number (e.g., +34722680349)', 'Close', {duration: 3000});
     }
 
     if (passwordError) {
-      this.snackBar.open('Password must be at least 8 characters long, contain at least one number, one lowercase, one uppercase letter, and one special character.', 'Close', { duration: 3000 });
+      this.snackBar.open('Password must be at least 8 characters long, contain at least one number, one lowercase, one uppercase letter, and one special character.', 'Close', {duration: 3000});
     }
 
     if (passwordMismatchError) {
-      this.snackBar.open('Passwords must match', 'Close', { duration: 3000 });
+      this.snackBar.open('Passwords must match', 'Close', {duration: 3000});
     }
 
     if (!phoneError && !passwordError && !passwordMismatchError) {
-      this.snackBar.open('Please fill out the form correctly', 'Close', { duration: 3000 });
+      this.snackBar.open('Please fill out the form correctly', 'Close', {duration: 3000});
     }
   }
 }

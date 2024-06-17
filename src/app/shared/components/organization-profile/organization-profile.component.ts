@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
-import { Router, ActivatedRoute } from '@angular/router';
-import { OrganizationProfileService } from '../../services/organization-profile.service';
-import { Organization } from '../../models/organization.model';
-import { AuthService } from '@core/auth.service';
-import { ConfirmDialogComponent } from '../../dialogs/confirm-dialog.component';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {ActivatedRoute, Router} from '@angular/router';
+import {OrganizationProfileService} from '../../services/organization-profile.service';
+import {Organization} from '../../models/organization.model';
+import {AuthService} from '@core/auth.service';
+import {ConfirmDialogComponent} from '../../dialogs/confirm-dialog.component';
 
 @Component({
   selector: 'app-organization-profile',
@@ -35,7 +35,7 @@ export class OrganizationProfileComponent implements OnInit {
 
   private createOrganizationForm(): FormGroup {
     return this.fb.group({
-      email: [{ value: '', disabled: true }, [Validators.email]],
+      email: [{value: '', disabled: true}, [Validators.email]],
       phone: ['', [Validators.pattern('^(\\+\\d{1,15})$')]],
       name: [''],
       description: [''],
@@ -51,18 +51,18 @@ export class OrganizationProfileComponent implements OnInit {
           this.organizationForm.patchValue(this.organization);
         },
         error: (err) => {
-          this.snackBar.open(`Error loading organization: ${err.message}`, 'Close', { duration: 3000 });
+          this.snackBar.open(`Error loading organization: ${err.message}`, 'Close', {duration: 3000});
         }
       });
     } else {
-      this.snackBar.open('Unauthorized access', 'Close', { duration: 3000 });
+      this.snackBar.open('Unauthorized access', 'Close', {duration: 3000});
       this.router.navigate(['/']).then();
     }
   }
 
   updateOrganization() {
     if (!this.authService.checkIsOrganization()) {
-      this.snackBar.open('Unauthorized access', 'Close', { duration: 3000 });
+      this.snackBar.open('Unauthorized access', 'Close', {duration: 3000});
       this.router.navigate(['/']).then();
       return;
     }
@@ -72,11 +72,11 @@ export class OrganizationProfileComponent implements OnInit {
 
       this.organizationProfileService.updateOrganization(this.organization.organizationUuid, updatedOrganization).subscribe({
         next: () => {
-          this.snackBar.open('Organization updated successfully', 'Close', { duration: 3000 });
+          this.snackBar.open('Organization updated successfully', 'Close', {duration: 3000});
           this.router.navigate(['/organization/profile']).then();
         },
         error: (err) => {
-          this.snackBar.open(`Error updating organization: ${err.message}`, 'Close', { duration: 3000 });
+          this.snackBar.open(`Error updating organization: ${err.message}`, 'Close', {duration: 3000});
         }
       });
     } else {
@@ -105,7 +105,7 @@ export class OrganizationProfileComponent implements OnInit {
 
   deleteAccount() {
     if (!this.authService.checkIsOrganization()) {
-      this.snackBar.open('Unauthorized access', 'Close', { duration: 3000 });
+      this.snackBar.open('Unauthorized access', 'Close', {duration: 3000});
       this.router.navigate(['/']).then();
       return;
     }
@@ -121,11 +121,11 @@ export class OrganizationProfileComponent implements OnInit {
       if (result) {
         this.organizationProfileService.deleteOrganization(this.organization.organizationUuid).subscribe({
           next: () => {
-            this.snackBar.open('Account deleted successfully', 'Close', { duration: 3000 });
+            this.snackBar.open('Account deleted successfully', 'Close', {duration: 3000});
             this.authService.clearSession();
           },
           error: (err) => {
-            this.snackBar.open(`Error deleting account: ${err.message}`, 'Close', { duration: 3000 });
+            this.snackBar.open(`Error deleting account: ${err.message}`, 'Close', {duration: 3000});
           }
         });
       }
@@ -136,9 +136,9 @@ export class OrganizationProfileComponent implements OnInit {
     const phoneError = this.organizationForm.get('phone')?.hasError('pattern');
 
     if (phoneError) {
-      this.snackBar.open('Enter a valid phone number (e.g., +34722680349)', 'Close', { duration: 3000 });
+      this.snackBar.open('Enter a valid phone number (e.g., +34722680349)', 'Close', {duration: 3000});
     } else {
-      this.snackBar.open('Please fill out the form correctly', 'Close', { duration: 3000 });
+      this.snackBar.open('Please fill out the form correctly', 'Close', {duration: 3000});
     }
   }
 }

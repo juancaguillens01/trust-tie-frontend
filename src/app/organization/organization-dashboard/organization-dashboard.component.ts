@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Animal } from '../../shared/models/animal.model';
-import { Event } from '../../shared/models/event.model';
-import { OrganizationAnimalService } from 'app/organization/animals/animal.service';
-import { OrganizationEventService } from 'app/organization/events/event.service';
+import {Component, OnInit} from '@angular/core';
+import {Animal} from '../../shared/models/animal.model';
+import {Event} from '../../shared/models/event.model';
+import {OrganizationAnimalService} from 'app/organization/animals/animal.service';
+import {OrganizationEventService} from 'app/organization/events/event.service';
 
 @Component({
   selector: 'app-organization-dashboard',
@@ -19,7 +19,8 @@ export class OrganizationDashboardComponent implements OnInit {
   constructor(
     private animalService: OrganizationAnimalService,
     private eventService: OrganizationEventService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.getMyAnimals();

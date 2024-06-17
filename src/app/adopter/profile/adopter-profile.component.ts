@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { AdopterProfileService } from '../adopter-profile.service';
-import { Adopter } from '../adopter-model';
-import { AuthService } from '@core/auth.service';
-import { ConfirmDialogComponent } from '../../shared/dialogs/confirm-dialog.component';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
+import {AdopterProfileService} from '../adopter-profile.service';
+import {Adopter} from '../adopter-model';
+import {AuthService} from '@core/auth.service';
+import {ConfirmDialogComponent} from '../../shared/dialogs/confirm-dialog.component';
 
 @Component({
   selector: 'app-adopter-profile',
@@ -34,7 +34,7 @@ export class AdopterProfileComponent implements OnInit {
 
   private createAdopterForm(): FormGroup {
     return this.fb.group({
-      email: [{ value: '', disabled: true }, [Validators.email]],
+      email: [{value: '', disabled: true}, [Validators.email]],
       phone: ['', [Validators.pattern('^(\\+\\d{1,15})$')]],
       firstName: [''],
       lastName: [''],
@@ -50,11 +50,11 @@ export class AdopterProfileComponent implements OnInit {
           this.adopterForm.patchValue(this.adopter);
         },
         error: (err) => {
-          this.snackBar.open(`Error loading adopter: ${err.message}`, 'Close', { duration: 3000 });
+          this.snackBar.open(`Error loading adopter: ${err.message}`, 'Close', {duration: 3000});
         }
       });
     } else {
-      this.snackBar.open('Unauthorized access', 'Close', { duration: 3000 });
+      this.snackBar.open('Unauthorized access', 'Close', {duration: 3000});
       this.router.navigate(['/']).then();
     }
   }
@@ -65,11 +65,11 @@ export class AdopterProfileComponent implements OnInit {
 
       this.adopterProfileService.updateAdopter(this.adopter.adopterUuid, updatedAdopter).subscribe({
         next: () => {
-          this.snackBar.open('Adopter updated successfully', 'Close', { duration: 3000 });
+          this.snackBar.open('Adopter updated successfully', 'Close', {duration: 3000});
           this.router.navigate(['/adopter/profile']).then();
         },
         error: (err) => {
-          this.snackBar.open(`Error updating adopter: ${err.message}`, 'Close', { duration: 3000 });
+          this.snackBar.open(`Error updating adopter: ${err.message}`, 'Close', {duration: 3000});
         }
       });
     } else {
@@ -98,7 +98,7 @@ export class AdopterProfileComponent implements OnInit {
 
   deleteAccount() {
     if (!this.authService.checkIsAdopter()) {
-      this.snackBar.open('Unauthorized access', 'Close', { duration: 3000 });
+      this.snackBar.open('Unauthorized access', 'Close', {duration: 3000});
       this.router.navigate(['/']).then();
       return;
     }
@@ -114,11 +114,11 @@ export class AdopterProfileComponent implements OnInit {
       if (result) {
         this.adopterProfileService.deleteAdopter(this.adopter.adopterUuid).subscribe({
           next: () => {
-            this.snackBar.open('Account deleted successfully', 'Close', { duration: 3000 });
+            this.snackBar.open('Account deleted successfully', 'Close', {duration: 3000});
             this.authService.clearSession();
           },
           error: (err) => {
-            this.snackBar.open(`Error deleting account: ${err.message}`, 'Close', { duration: 3000 });
+            this.snackBar.open(`Error deleting account: ${err.message}`, 'Close', {duration: 3000});
           }
         });
       }
@@ -129,9 +129,9 @@ export class AdopterProfileComponent implements OnInit {
     const phoneError = this.adopterForm.get('phone')?.hasError('pattern');
 
     if (phoneError) {
-      this.snackBar.open('Enter a valid phone number (e.g., +34722680349)', 'Close', { duration: 3000 });
+      this.snackBar.open('Enter a valid phone number (e.g., +34722680349)', 'Close', {duration: 3000});
     } else {
-      this.snackBar.open('Please fill out the form correctly', 'Close', { duration: 3000 });
+      this.snackBar.open('Please fill out the form correctly', 'Close', {duration: 3000});
     }
   }
 }

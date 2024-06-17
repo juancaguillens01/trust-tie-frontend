@@ -1,7 +1,8 @@
 <div class="events-container">
   <h2 class="events-title text-center my-4">Events List</h2>
   <div *ngIf="events.length > 0; else noEvents" class="event-list">
-    <mat-card *ngFor="let event of events" class="event-card mb-3" [routerLink]="['/adopter/event-detail', event.eventUuid]">
+    <mat-card *ngFor="let event of events" class="event-card mb-3"
+              [routerLink]="['/adopter/event-detail', event.eventUuid]">
       <img mat-card-image src="../../../assets/images/imageNotAvailable.png" alt="{{ event.title }}">
       <div class="event-card-header">
         <mat-card-title class="text-center">{{ event.title }}</mat-card-title>

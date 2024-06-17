@@ -51,6 +51,6 @@ export class LoginComponent {
   }
 
   private handleError(err: any): void {
-    this.snackBar.open(`Login failed: ${err.message}`, 'Close', { duration: 3000 });
+    this.snackBar.open(`Login failed: ${err.message}`, 'Close', {duration: 3000});
   }
 }

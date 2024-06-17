@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Animal } from 'app/shared/models/animal.model';
-import { AnimalService } from 'app/shared/services/animal.service';
-import { OrganizationAnimalService } from 'app/organization/animals/animal.service';
-import { OrganizationProfileService } from 'app/shared/services/organization-profile.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from 'app/shared/dialogs/confirm-dialog.component';
-import { Size } from 'app/shared/models/size.model';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Animal} from 'app/shared/models/animal.model';
+import {AnimalService} from 'app/shared/services/animal.service';
+import {OrganizationAnimalService} from 'app/organization/animals/animal.service';
+import {OrganizationProfileService} from 'app/shared/services/organization-profile.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmDialogComponent} from 'app/shared/dialogs/confirm-dialog.component';
+import {Size} from 'app/shared/models/size.model';
 
 interface AnimalDetailRouteData {
   isOrganization: boolean;
@@ -69,7 +69,7 @@ export class AnimalDetailComponent implements OnInit {
         this.loadAnimal(animalUuid, organization.organizationUuid);
       },
       error: (err) => {
-        this.snackBar.open(`Failed to load organization details: ${err.message}`, 'Close', { duration: 3000 });
+        this.snackBar.open(`Failed to load organization details: ${err.message}`, 'Close', {duration: 3000});
         this.router.navigate(['/organization/dashboard']).then();
       }
     });
@@ -82,12 +82,12 @@ export class AnimalDetailComponent implements OnInit {
           this.animal = animal;
           this.animalForm.patchValue(animal);
         } else {
-          this.snackBar.open('You do not have access to view this animal.', 'Close', { duration: 3000 });
+          this.snackBar.open('You do not have access to view this animal.', 'Close', {duration: 3000});
           this.router.navigate(['/organization/dashboard']).then();
         }
       },
       error: (err) => {
-        this.snackBar.open(`Failed to load animal: ${err.message}`, 'Close', { duration: 3000 });
+        this.snackBar.open(`Failed to load animal: ${err.message}`, 'Close', {duration: 3000});
         this.router.navigate(['/organization/my-animals-list']).then();
       }
     });
@@ -103,14 +103,14 @@ export class AnimalDetailComponent implements OnInit {
 
   updateAnimal() {
     if (this.animalForm.valid) {
-      const updatedAnimal: Animal = { ...this.animal, ...this.animalForm.value };
+      const updatedAnimal: Animal = {...this.animal, ...this.animalForm.value};
       this.organizationAnimalService.updateAnimal(updatedAnimal).subscribe({
         next: () => {
-          this.snackBar.open('Animal updated successfully', 'Close', { duration: 3000 });
+          this.snackBar.open('Animal updated successfully', 'Close', {duration: 3000});
           this.loadAnimal(this.animal.animalUuid, this.animal.organizationUuid);
         },
         error: (err) => {
-          this.snackBar.open(`Failed to update animal: ${err.message}`, 'Close', { duration: 3000 });
+          this.snackBar.open(`Failed to update animal: ${err.message}`, 'Close', {duration: 3000});
         }
       });
     }
@@ -119,18 +119,18 @@ export class AnimalDetailComponent implements OnInit {
   deleteAnimal() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '300px',
-      data: { title: 'Confirm Delete', message: 'Are you sure you want to delete this animal?' }
+      data: {title: 'Confirm Delete', message: 'Are you sure you want to delete this animal?'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.organizationAnimalService.deleteAnimal(this.animal.animalUuid).subscribe({
           next: () => {
-            this.snackBar.open('Animal deleted successfully', 'Close', { duration: 3000 });
+            this.snackBar.open('Animal deleted successfully', 'Close', {duration: 3000});
             this.router.navigate(['/organization/my-animals-list']).then();
           },
           error: (err) => {
-            this.snackBar.open(`Failed to delete animal: ${err.message}`, 'Close', { duration: 3000 });
+            this.snackBar.open(`Failed to delete animal: ${err.message}`, 'Close', {duration: 3000});
           }
         });
       }

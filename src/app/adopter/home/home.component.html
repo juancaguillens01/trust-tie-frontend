@@ -8,7 +8,8 @@
         <mat-card-content class="content">
           <div *ngIf="randomAnimals.length > 0; else noAnimals">
             <div class="card-group d-flex flex-wrap">
-              <mat-card *ngFor="let animal of randomAnimals" class="animal-card mb-3" [routerLink]="['/adopter/animal-detail', animal.animalUuid]">
+              <mat-card *ngFor="let animal of randomAnimals" class="animal-card mb-3"
+                        [routerLink]="['/adopter/animal-detail', animal.animalUuid]">
                 <img mat-card-image src="assets/images/imageNotAvailable.png" alt="{{ animal.name }}">
                 <mat-card-title class="text-center">{{ animal.name }}</mat-card-title>
               </mat-card>
@@ -30,7 +31,8 @@
         <mat-card-content class="content">
           <div *ngIf="upcomingEvents.length > 0; else noEvents">
             <div class="card-group d-flex flex-wrap">
-              <mat-card *ngFor="let event of upcomingEvents" class="event-card mb-3" [routerLink]="['/adopter/event-detail', event.eventUuid]">
+              <mat-card *ngFor="let event of upcomingEvents" class="event-card mb-3"
+                        [routerLink]="['/adopter/event-detail', event.eventUuid]">
                 <img mat-card-image src="assets/images/imageNotAvailable.png" alt="{{ event.title }}">
                 <mat-card-title class="text-center">{{ event.title }}</mat-card-title>
               </mat-card>

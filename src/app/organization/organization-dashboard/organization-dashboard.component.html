@@ -1,1 +1,50 @@
-
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6 mb-4 d-flex flex-column">
+      <mat-card class="dashboard-card flex-grow-1">
+        <mat-card-header>
+          <mat-card-title>Check your animals</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="content">
+          <div *ngIf="randomAnimals.length > 0; else noAnimals">
+            <div class="card-group d-flex flex-wrap">
+              <mat-card *ngFor="let animal of randomAnimals" class="animal-card mb-3" [routerLink]="['/organization/animal-detail', animal.animalUuid]">
+                <img mat-card-image src="assets/images/imageNotAvailable.png" alt="{{ animal.name }}">
+                <mat-card-title class="text-center">{{ animal.name }}</mat-card-title>
+              </mat-card>
+            </div>
+          </div>
+          <ng-template #noAnimals>
+            <div class="no-animals-container text-center">
+              <p>You don't have any animals yet.</p>
+              <a mat-button color="primary" routerLink="/organization/create-animal">Add a new animal</a>
+            </div>
+          </ng-template>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-6 mb-4 d-flex flex-column">
+      <mat-card class="dashboard-card flex-grow-1">
+        <mat-card-header>
+          <mat-card-title>Check your next events</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="content">
+          <div *ngIf="upcomingEvents.length > 0; else noEvents">
+            <div class="card-group d-flex flex-wrap">
+              <mat-card *ngFor="let event of upcomingEvents" class="event-card mb-3" [routerLink]="['/organization/event-detail', event.eventUuid]">
+                <img mat-card-image src="assets/images/imageNotAvailable.png" alt="{{ event.title }}">
+                <mat-card-title class="text-center">{{ event.title }}</mat-card-title>
+              </mat-card>
+            </div>
+          </div>
+          <ng-template #noEvents>
+            <div class="no-events-container text-center">
+              <p>You don't have any events yet.</p>
+              <a mat-button color="primary" routerLink="/organization/create-event">Add a new event</a>
+            </div>
+          </ng-template>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

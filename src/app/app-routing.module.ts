@@ -1,7 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AdopterGuard} from "@core/guards/adopter.guard";
-import {OrganizationGuard} from "@core/guards/organization.guard";
 
 const routes: Routes = [
   {

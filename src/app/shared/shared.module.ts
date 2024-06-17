@@ -14,10 +14,11 @@ import { AnimalDetailComponent } from './components/animals/animal-detail.compon
 import {MatSelectModule} from "@angular/material/select";
 import { EventDetailComponent } from './components/events/event-detail.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {FooterComponent} from "./components/footer/footer.component";
 
 @NgModule({
-  declarations: [HeaderComponent, OrganizationProfileComponent, ConfirmDialogComponent, AnimalDetailComponent, EventDetailComponent],
+  declarations: [HeaderComponent, FooterComponent, OrganizationProfileComponent, ConfirmDialogComponent, AnimalDetailComponent, EventDetailComponent],
     imports: [CommonModule, MatToolbarModule, RouterLink, MatButtonModule, RouterLinkActive, ReactiveFormsModule, MatInputModule, MatCardModule, MatDialogModule, MatSelectModule, MatDatepickerModule],
-  exports: [HeaderComponent]
+  exports: [HeaderComponent, FooterComponent]
 })
 export class SharedModule {}

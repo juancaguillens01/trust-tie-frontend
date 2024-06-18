@@ -78,7 +78,7 @@ export class EventDetailComponent implements OnInit {
           this.event = event;
           this.eventForm.patchValue({
             ...event,
-            eventDate: new Date(event.eventDate) // Convert to Date object
+            eventDate: new Date(event.eventDate)
           });
         } else {
           this.snackBar.open('You do not have access to view this event.', 'Close', {duration: 3000});
@@ -112,7 +112,7 @@ export class EventDetailComponent implements OnInit {
       const updatedEvent: Event = {
         ...this.event,
         ...this.eventForm.value,
-        eventDate: this.toUTCDate(new Date(this.eventForm.value.eventDate)) // Convert to UTC
+        eventDate: this.toUTCDate(new Date(this.eventForm.value.eventDate))
       };
       this.organizationEventService.updateEvent(updatedEvent).subscribe({
         next: () => {

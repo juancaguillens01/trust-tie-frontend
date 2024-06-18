@@ -27,7 +27,7 @@ export class HttpService {
 
   param(key: string, value: string): HttpService {
     if (value != null) {
-      this.params = this.params.append(key, value); // This class is immutable
+      this.params = this.params.append(key, value);
     }
     return this;
   }
@@ -109,7 +109,7 @@ export class HttpService {
 
   header(key: string, value: string): HttpService {
     if (value != null) {
-      this.headers = this.headers.append(key, value); // This class is immutable
+      this.headers = this.headers.append(key, value);
     }
     return this;
   }
